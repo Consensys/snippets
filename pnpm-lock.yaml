@@ -10,7 +10,7 @@ importers:
     dependencies:
       next-app-router:
         specifier: workspace:*
-        version: link:packages/next-app-router
+        version: link:packages/nextjs-app-router
 
   frontend:
     dependencies:
@@ -139,7 +139,7 @@ importers:
         specifier: ^2.1.4
         version: 2.1.4
 
-  packages/next-app-router:
+  packages/nextjs-app-router:
     dependencies:
       next:
         specifier: 14.0.4
