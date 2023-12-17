@@ -79,11 +79,11 @@ export const getCheats = async (packageName: string) => {
               console.error("Failed to parse JSON in @fetch comment:", err);
               return;
             }
-            path.node.leadingComments = path.node.leadingComments.filter(
+            path.node.leadingComments = path.node.leadingComments?.filter(
               (comment) => comment !== fetchComment
             );
             if (trailingComments) {
-              path.node.trailingComments = path.node.trailingComments.filter(
+              path.node.trailingComments = path.node.trailingComments?.filter(
                 (comment) => comment !== fetchComment
               );
             }
