@@ -23,9 +23,16 @@ import {
 } from "@/components/ui/popover";
 import MetaMaskProvider from "@/providers/MetamaskProvider";
 import { useEffect, useState } from "react";
-
 const LINEA_TESTNET_CHAIN = "0xe704";
 
+/*@cheatsheet
+    {
+        "flow": "Switch to Linea Testnet",
+        "step": 1,
+        "title": "Use wallet_switchEthereumChain",
+        "description": "This method will prompt the user to switch to the Linea Testnet."
+    }
+    */
 const switchEthereumChain = async () => {
   if (!window.ethereum) return;
 

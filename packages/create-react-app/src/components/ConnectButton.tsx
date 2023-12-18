@@ -4,6 +4,7 @@ export default function ConnectButton() {
 
     /* @cheatsheet
     {
+        "flow": "Connect to MetaMask",
         "title": "My Title",
         "description": "My Description"
     }

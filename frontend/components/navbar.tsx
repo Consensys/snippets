@@ -43,10 +43,7 @@ export default function NavigationMenuDemo({ packages }: any) {
                           <div className="mt-4 mb-2 text-lg font-medium">
                             {key}
                           </div>
-                          <p className="text-sm leading-tight text-muted-foreground">
-                            Beautifully designed components built with Radix UI
-                            and Tailwind CSS.
-                          </p>
+                  
                         </a>
                       </NavigationMenuLink>
                     </li>

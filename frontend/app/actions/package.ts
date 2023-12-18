@@ -100,7 +100,7 @@ export const getCheats = async (packageName: string) => {
               ...cheat,
               code,
               file: absolutePath,
-              link: `https://github.com/chin-flags/metamask-cheatsheet/blob/25ef251683b9896b05353370dad0cbd98972ffd0/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}}`
+              link: `https://github.com/chin-flags/metamask-cheatsheet/blob/main/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}`
             });
           }
         }
