@@ -12,6 +12,7 @@ export type CheatFlow = Record<string, PackageCheat[]>;
 
 export type PackageCheat = {
   flow: string;
+  step: number;
   code: string;
   title: string;
   description: string;
@@ -43,6 +44,9 @@ export const getAllFlows = async (packageName: string) => {
     return acc;
   }, {} as CheatFlow);
 
+  for (let flowName in flow) {
+    flow[flowName].sort((a, b) => Number(a.step) - Number(b.step));
+}
   return flow;
 };
 
@@ -66,17 +70,20 @@ export const getCheats = async (packageName: string) => {
     traverse(ast, {
       enter(path) {
         const { leadingComments, trailingComments } = path.node;
+      
         if (leadingComments) {
           const fetchComment = leadingComments.find((comment) =>
-            comment.value.trim().startsWith("@fetch")
+            comment.value.trim().startsWith("@cheatsheet")
           );
+
+       
           if (fetchComment) {
-            const jsonStr = fetchComment.value.trim().substring(6).trim();
+            const jsonStr = fetchComment.value.trim().substring("@cheatsheet".length).trim();
             let cheat: Omit<PackageCheat, "code">;
             try {
               cheat = JSON.parse(jsonStr);
             } catch (err) {
-              console.error("Failed to parse JSON in @fetch comment:", err);
+              console.error("Failed to parse JSON n @cheatsheet comment:", err);
               return;
             }
             path.node.leadingComments = path.node.leadingComments?.filter(
@@ -87,13 +94,13 @@ export const getCheats = async (packageName: string) => {
                 (comment) => comment !== fetchComment
               );
             }
+            console.log(`https://github.com/chin-flags/metamask-cheatsheet/blob/25ef251683b9896b05353370dad0cbd98972ffd0/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}}`)
             const { code } = generate(path.node);
-
             packageCheats.push({
               ...cheat,
               code,
               file: absolutePath,
-              link: "https://github.com/vercel/vercel/blob/211c74a7d2a3a65fa2a7a4bcf1cf0154067a394d/examples/nextjs/app/layout.tsx#L7-L10",
+              link: `https://github.com/chin-flags/metamask-cheatsheet/blob/25ef251683b9896b05353370dad0cbd98972ffd0/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}}`
             });
           }
         }

@@ -3,6 +3,6 @@
 import React from "react";
 import QRCode from "qrcode.react";
 
-const CodeBlock = ({ link }: { link: string }) => <QRCode value={link} />;
+const QRCodeContainer = ({ link }: { link: string }) => <QRCode size={52} value={link} />;
 
-export default CodeBlock;
+export default QRCodeContainer;
