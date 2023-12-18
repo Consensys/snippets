@@ -41,7 +41,7 @@ const Package = async ({ params, searchParams }: PageProps) => {
                 <Link href={cheat.link}>
                   <GithubIcon />
                 </Link>
-                {searchParams.print && <QRCodeContainer values={cheat.link} />}
+                {searchParams.print && <QRCodeContainer link={cheat.link} />}
               </div>
             </div>
           ))}
