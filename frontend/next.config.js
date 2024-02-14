@@ -5,6 +5,15 @@ const nextConfig = {
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
       },
+      images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname:  "avatars.githubusercontent.com",
+          }
+         
+        ]
+      }
 }
 
 module.exports = nextConfig

@@ -5,7 +5,6 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Copy } from "lucide-react";
-import QRCode from "qrcode.react";
 
 const CodeBlock = ({
   code,
@@ -22,15 +21,15 @@ const CodeBlock = ({
   };
 
   return (
-    <div className="relative rounded-xl">
+    <div className="relative w-[700px]">
       {!print && (
         <CopyToClipboard text={code} onCopy={handleCopy}>
-          <button className="absolute text-sm text-white bg-transparent border-none cursor-pointer bottom-2 right-2">
+          <button className="absolute text-sm text-white bg-transparent border-none cursor-pointer top-4 right-4">
             {isCopied ? "Copied!" : <Copy color="white" size="18px" />}
           </button>
         </CopyToClipboard>
       )}
-      <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
+      <SyntaxHighlighter customStyle={{ borderRadius: 20, padding: 12, height: "100%"}} language="javascript" style={vscDarkPlus}>
         {code}
       </SyntaxHighlighter>
     </div>

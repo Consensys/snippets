@@ -1,19 +1,31 @@
-import Image from "next/image";
+import React, { FC } from "react";
 import { getAllPackages } from "./actions/package";
-import Link from "next/link";
+import Card from "@/components/card";
+import Hero from "@/components/hero";
+import { getCheats } from "./actions/package";
 
-export const revalidate = 0;
-export default async function Home() {
-
-  const packages = getAllPackages();
-
+export default async function Page(): Promise<JSX.Element> {
+  // const receiptPackages = await getAllPackages();
+  const pkgs = await getAllPackages();
+  console.log(pkgs, "pkgs");
   return (
-    <main className="flex flex-col items-center justify-between min-h-screen p-24">
-      {/* <div className="z-10 items-center justify-between w-full max-w-5xl font-mono text-sm lg:flex">
-        {packages.map((pkg) => (
-          <Link href={`/${pkg}`}>{pkg}</Link>
+    <div className="flex flex-col gap-4 w-full">
+      <Hero />
+      <div className="grid grid-cols-3 gap-4 w-full">
+        {pkgs.map(({ name, description, packageName, image }) => (
+          <Card
+            key={1}
+            name={name}
+            to={`/${packageName}`}
+            description={description}
+            image={image}
+            // links={[
+            //   { title: "Docs", href: module.docs },
+            //   { title: "API", href: module.api },
+            // ]}
+          />
         ))}
-      </div> */}
-    </main>
+      </div>
+    </div>
   );
 }

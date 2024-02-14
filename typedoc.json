@@ -1,0 +1,6 @@
+{
+    "entryPoints": ["packages/*"],
+    "entryPointStrategy": "packages",
+    "json": "frontend/doc-gen/out.json",
+    "out": "./docs"
+}

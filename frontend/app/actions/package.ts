@@ -23,14 +23,31 @@ export type PackageCheat = {
 export const getAllPackages = async () => {
   const packages = glob.sync("../packages/*");
 
-  return await Promise.all(
-    packages.map(async (pkg) => {
-      const packageName = pkg.split("/").pop();
+  return packages.map((pkg) => {
+    const packageName = pkg.split("/").pop();
+    const absolutePath = path.resolve(
+      `../packages/${packageName}/snippets.config.json`
+    );
 
-      const flows = (await getAllFlows(packageName!)) || [];
-      return { name: pkg.split("/").pop(), flows };
-    })
-  );
+    try {
+      const json = fs.readFileSync(absolutePath, "utf8");
+
+      if (json) {
+        const packageData = JSON.parse(json);
+        return {
+          ...packageData,
+          packageName
+        };
+      }
+    } catch (error) {
+      console.log("No config file found for package", packageName);
+    }
+
+    return {
+      name: packageName,
+      packageName,
+    };
+  });
 };
 
 export const getAllFlows = async (packageName: string) => {
@@ -46,7 +63,7 @@ export const getAllFlows = async (packageName: string) => {
 
   for (let flowName in flow) {
     flow[flowName].sort((a, b) => Number(a.step) - Number(b.step));
-}
+  }
   return flow;
 };
 
@@ -56,7 +73,7 @@ export const getCheats = async (packageName: string) => {
     gitignore: true,
   });
 
-  const packageCheats: PackageCheat[] = [];
+  const packageCheats: any[] = [];
 
   files.forEach((file) => {
     const absolutePath = path.resolve(`../packages/${packageName}`, file);
@@ -65,27 +82,53 @@ export const getCheats = async (packageName: string) => {
     const ast = parse(code, {
       sourceType: "module",
       plugins: ["typescript", "jsx"],
+      attachComment: true,
     });
+
+    const snippets: any = {
+      data: [],
+    };
 
     traverse(ast, {
       enter(path) {
         const { leadingComments, trailingComments } = path.node;
-      
         if (leadingComments) {
-          const fetchComment = leadingComments.find((comment) =>
-            comment.value.trim().startsWith("@cheatsheet")
+          const fetchComment = leadingComments.find(
+            (comment) =>
+              comment.value.trim().startsWith("*") &&
+              !comment.value.trim().startsWith("@module")
           );
 
-       
-          if (fetchComment) {
-            const jsonStr = fetchComment.value.trim().substring("@cheatsheet".length).trim();
-            let cheat: Omit<PackageCheat, "code">;
-            try {
-              cheat = JSON.parse(jsonStr);
-            } catch (err) {
-              console.error("Failed to parse JSON n @cheatsheet comment:", err);
-              return;
+          const moduleComment = leadingComments.find((comment) =>
+            comment.value.trim().startsWith("@module")
+          );
+          const commentObject: any = {};
+          const moduleCommentObject: any = {};
+
+          const commentLines = fetchComment?.value.trim().split("\n");
+          const moduleCommentLines = moduleComment?.value.trim().split("\n");
+
+          commentLines?.forEach((line) => {
+            const match = line.match(/@(\w+)\s+(.+)/);
+            if (match) {
+              const key = match[1];
+              const value = match[2].trim();
+              commentObject[key] = value;
             }
+          });
+
+          moduleCommentLines?.forEach((line) => {
+            const match = line.match(/@(\w+)\s+(.+)/);
+            if (match) {
+              const key = match[1];
+              const value = match[2].trim();
+              moduleCommentObject[key] = value;
+            }
+          });
+
+          let snippet: any = {};
+
+          if (fetchComment) {
             path.node.leadingComments = path.node.leadingComments?.filter(
               (comment) => comment !== fetchComment
             );
@@ -94,18 +137,31 @@ export const getCheats = async (packageName: string) => {
                 (comment) => comment !== fetchComment
               );
             }
-            console.log(`https://github.com/chin-flags/metamask-cheatsheet/blob/25ef251683b9896b05353370dad0cbd98972ffd0/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}}`)
+            console.log(
+              `https://github.com/chin-flags/metamask-cheatsheet/blob/25ef251683b9896b05353370dad0cbd98972ffd0/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}}`
+            );
+
             const { code } = generate(path.node);
-            packageCheats.push({
-              ...cheat,
+
+            snippets.data.push({
+              ...commentObject,
               code,
               file: absolutePath,
-              link: `https://github.com/chin-flags/metamask-cheatsheet/blob/main/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}`
+              link: `https://github.com/chin-flags/metamask-cheatsheet/blob/main/packages/${packageName}/${file}#L${path.node.loc?.start.line}-L${path.node.loc?.end.line}`,
             });
+          }
+
+          if (moduleComment) {
+            snippets.module = moduleCommentObject;
           }
         }
       },
     });
+
+    if(snippets.data.length > 0) {
+
+      return packageCheats.push(snippets);
+    }
   });
 
   return packageCheats;
