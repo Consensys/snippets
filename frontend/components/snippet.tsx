@@ -2,12 +2,6 @@
 
 import Link from "next/link";
 import CodeBlock from "@/components/code-block";
-import { getReceipts } from "@/app/actions/receipts";
-import { Badge, badgeVariants } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
-export const revalidate = 0;
 
 type PageProps = {
   snippet: any;
