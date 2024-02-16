@@ -8,6 +8,7 @@ type PageProps = {
 };
 
 const Snippet = ({ snippet }: PageProps) => {
+
   return (
     <div className="flex">
       <div className="flex flex-col gap-4 w-full items-center">
@@ -36,18 +37,18 @@ const Snippet = ({ snippet }: PageProps) => {
                           </div>
                         </Link>
                       )}
-
-                      <Link target="_blank" href={snippet.link}>
-                        <div className=" rounded-[10px] text-sm  px-2 py-[0.5] bg-orange-500 text-white w-fit text-primary-foreground hover:bg-orange-500/80">
-                          Repo
-                        </div>
-                      </Link>
+                      {snippet.link && (
+                        <Link target="_blank" href={snippet.link}>
+                          <div className=" rounded-[10px] text-sm  px-2 py-[0.5] bg-orange-500 text-white w-fit text-primary-foreground hover:bg-orange-500/80">
+                            Repo
+                          </div>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <p className="text-sm max-w-3xl">{snippet.description}</p>
-
               </div>
               <div className="flex flex-col lg:flex-row justify-between">
                 <CodeBlock code={snippet.code} />

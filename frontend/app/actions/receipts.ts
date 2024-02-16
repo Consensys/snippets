@@ -41,6 +41,7 @@ export const getSnippetsByModule = async (moduleName: string) => {
         title: title || item.name,
         description: item.declaration && cleanHtml(item.description),
         code: item.meta.code.snippet,
+        link: item.meta.code.link,
         api,
         docs,
         path: item.meta.path,
