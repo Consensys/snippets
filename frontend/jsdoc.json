@@ -2,7 +2,7 @@
     "source": {
       "include": ["../packages"],
       "includePattern": ".js$",
-      "excludePattern": "(node_modules/|docs)"
+      "excludePattern": "(node_modules|docs)"
     },
     "plugins": ["plugins/markdown", "plugins/get-code.js"],
     "templates": {
