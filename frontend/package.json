@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run docs && next build",
     "start": "next start",
     "lint": "next lint",
-    "watch": "nodemon --watch 'app/receipts/*.ts' --exec 'type-gen'",
-    "type-gen": "typedoc --json typedoc/output.json  app/receipts/*"
+    "docs": "jsdoc -c jsdoc.json --explain > docs/documentation.json"
   },
   "dependencies": {
     "@babel/generator": "^7.23.6",

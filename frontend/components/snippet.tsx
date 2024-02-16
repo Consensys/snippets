@@ -19,11 +19,7 @@ const Snippet = ({ snippet }: PageProps) => {
       <div className="flex flex-col gap-4 w-full items-center">
         <div className="flex">
           <div>
-            <div
-              className="w-full mb-12"
-              key={snippet.id}
-           
-            >
+            <div className="w-full mb-12">
               <div className="text-transparent mb-8 bg-gradient-to-br bg-clip-text  from-white to-slate-400">
                 <div>
                   <div className="mt-4 flex items-center  gap-2">
@@ -31,28 +27,23 @@ const Snippet = ({ snippet }: PageProps) => {
                       {snippet.title}
                     </h2>
                     <div className="flex gap-2">
-                      <Link
-                        target="_blank"
-                        href="https://docs.phosphor.xyz/platform-features/digital-asset-creation/collections"
-                      >
-                        <div className=" rounded-[10px] text-sm px-2 py-[0.5] bg-green-500 text-white w-fit text-primary-foreground hover:bg-green-500/80">
-                          Docs
-                        </div>
-                      </Link>
+                      {snippet.docs && (
+                        <Link target="_blank" href={snippet.docs}>
+                          <div className=" rounded-[10px] text-sm px-2 py-[0.5] bg-green-500 text-white w-fit text-primary-foreground hover:bg-green-500/80">
+                            Docs
+                          </div>
+                        </Link>
+                      )}
 
-                      <Link
-                        target="_blank"
-                        href=" https://docs.phosphor.xyz/latest-admin-api#tag/Collection"
-                      >
-                        <div className=" rounded-[10px] text-sm  px-2 py-[0.5] bg-blue-500 text-white w-fit text-primary-foreground hover:bg-blue-500/80">
-                          API
-                        </div>
-                      </Link>
+                      {snippet.api && (
+                        <Link target="_blank" href={snippet.api}>
+                          <div className=" rounded-[10px] text-sm px-2 py-[0.5] bg-green-500 text-white w-fit text-primary-foreground hover:bg-green-500/80">
+                            API
+                          </div>
+                        </Link>
+                      )}
 
-                      <Link
-                        target="_blank"
-                        href=" https://docs.phosphor.xyz/latest-admin-api#tag/Collection"
-                      >
+                      <Link target="_blank" href={snippet.path}>
                         <div className=" rounded-[10px] text-sm  px-2 py-[0.5] bg-orange-500 text-white w-fit text-primary-foreground hover:bg-orange-500/80">
                           Repo
                         </div>

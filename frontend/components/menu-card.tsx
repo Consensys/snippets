@@ -1,7 +1,4 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-
 interface MenuCardProps {
   name: string;
   to?: string;
@@ -31,7 +28,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
         /> */}
       </div>
       <div className="space-y-3">
-        <h5 className="text-gray-200 block text-sm leading-8 font-bold tracking-tight md:text-xl">
+        <h5 className="text-gray-200 block text-sm leading-8 font-bold tracking-tight md:text-sm">
           {name}
         </h5>
         <p className="max-w-xs text-xs text-justify font-semibold text-opacity-70 text-gray-300">

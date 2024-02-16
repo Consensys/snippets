@@ -7,10 +7,11 @@
   ],
   "main": "index.js",
   "scripts": {
-    "doc-gen": "typedoc",
+    "docs": "jsdoc -c jsdoc.json --explain > documentation.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "jsdoc": "^4.0.2",
     "typedoc": "^0.25.7"
   },
   "keywords": [],

@@ -1,7 +1,0 @@
-{
-    "extends": ["../../typedoc.base.json"],
-    "entryPointStrategy": "expand",
-    // If not set, will result in a warning being printed since it's likely a misconfiguration
-    "entryPoints": ["./*/**"]
-
-  }
