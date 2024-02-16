@@ -3,7 +3,7 @@ const Hero = async () => {
     <section className="my-32">
       <h1 className="text-center text-primary block text-4xl leading-8 font-bold tracking-tight md:text-5xl">
         <span className="text-transparent bg-gradient-to-br bg-clip-text  from-white to-slate-400">
-        Javascript Snippets
+        Phosphor Snippets
         </span>
       </h1>
    

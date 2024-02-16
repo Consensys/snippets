@@ -54,20 +54,6 @@ const Snippet = ({ snippet }: PageProps) => {
 
                 <p className="text-sm max-w-3xl">{snippet.description}</p>
 
-                <div>
-                  {snippet.docs && (
-                    <Button variant="secondary">
-                      <Link target="_blank" href={snippet.docs}>
-                        Docs
-                      </Link>
-                    </Button>
-                  )}
-                  {snippet.api && (
-                    <span className="py-1 px-2 text-xs rounded-xl inline-block whitespace-nowrap text-center bg-sky-200 text-cyan-600 align-baseline font-bold uppercase leading-none">
-                      API
-                    </span>
-                  )}
-                </div>
               </div>
               <div className="flex flex-col lg:flex-row justify-between">
                 <CodeBlock code={snippet.code} />
