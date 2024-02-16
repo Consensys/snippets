@@ -37,7 +37,7 @@ const Snippet = ({ snippet }: PageProps) => {
                         </Link>
                       )}
 
-                      <Link target="_blank" href={snippet.path}>
+                      <Link target="_blank" href={snippet.link}>
                         <div className=" rounded-[10px] text-sm  px-2 py-[0.5] bg-orange-500 text-white w-fit text-primary-foreground hover:bg-orange-500/80">
                           Repo
                         </div>
