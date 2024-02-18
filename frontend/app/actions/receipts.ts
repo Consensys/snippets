@@ -36,15 +36,25 @@ export const getSnippetsByModule = async (moduleName: string) => {
       const title = item.tags?.find((tag: any) => tag.title === "title")?.value;
       const api = item.tags?.find((tag: any) => tag.title === "api")?.value;
       const docs = item.tags?.find((tag: any) => tag.title === "docs")?.value;
-      console.log("+++++++++++++++++++++++++ PATH", item.meta.path);
+
+      const path = item.meta.code.link;
+      const lineno = item.meta.lineno;
+
+      const parts = path.split("/");
+      const index = parts.indexOf("packages");
+
+      // Building a link that points to the line of code in the github repo
+      const link = `${process.env.GITHUB_REPO_URL}/${parts
+        .slice(index)
+        .join("/")}#L${lineno}`;
+
       return {
         title: title || item.name,
         description: item.declaration && cleanHtml(item.description),
         code: item.meta.code.snippet,
-        link: item.meta.code.link,
+        link,
         api,
         docs,
-        path: item.meta.path,
       };
     });
 };
