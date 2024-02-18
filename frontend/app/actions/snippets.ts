@@ -12,47 +12,80 @@ const cleanHtml = (html: string) => {
   return html.replace(/<[^>]*>?/gm, "");
 };
 
-export const getModules = async () => {
-  const modules = data
+export const getPackages = async () => {
+  const packages = data
     .filter((child: any) => child.kind === "module")
-    .map((moduleObj: any) => {
+    .reduce((acc: any, moduleObj: any) => {
       const title = moduleObj.tags.find(
         (tag: any) => tag.title === "title"
       )?.value;
 
-      return {
+      const parts = moduleObj.name.split("/");
+
+      const packageName = parts[0];
+      const module = parts.slice(1).join("/");
+
+      const moduleData = {
         title,
-        key: moduleObj.longname,
+        key: module,
         description: cleanHtml(moduleObj.description),
       };
-    });
-  return modules;
+
+      if (!acc[packageName]) {
+        acc[packageName] = [moduleData];
+      } else {
+        acc[packageName].push(moduleData);
+      }
+
+      return acc;
+    }, {});
+
+  return packages;
 };
 
-export const getSnippetsByModule = async (moduleName: string) => {
+export const getSnippetsByModule = async (
+  packgeName: string,
+  moduleName: string
+) => {
+
   return data
-    .filter((item) => item.memberof === moduleName && item.kind === "function")
+    .filter(
+      (item) =>
+        item.memberof ===
+          `module:${packgeName}/${decodeURIComponent(moduleName)}` &&
+        item.kind === "function"
+    )
     .map((item: any) => {
       const title = item.tags?.find((tag: any) => tag.title === "title")?.value;
       const api = item.tags?.find((tag: any) => tag.title === "api")?.value;
       const docs = item.tags?.find((tag: any) => tag.title === "docs")?.value;
 
-      const path = item.meta.code.link;
+      const codePath = item.meta.code.link;
       const lineno = item.meta.lineno;
 
-      const parts = path.split("/");
+      const parts = codePath.split("/");
       const index = parts.indexOf("packages");
 
       // Building a link that points to the line of code in the github repo
-      const link = `${process.env.GITHUB_REPO_URL}/${parts
+      const link = `${process.env.GITHUB_REPO_URL}/${codePath
+        .split("/")
         .slice(index)
         .join("/")}#L${lineno}`;
+
+      const pkgPath = item.meta.path;
+
+      // Building a link that points to the type definitions in the github repo
+      const typeDefs = `${process.env.GITHUB_REPO_URL}/${pkgPath
+        .split("/")
+        .slice(parts.indexOf("packages"))
+        .join("/")}/types/${moduleName}`;
 
       return {
         title: title || item.name,
         description: item.declaration && cleanHtml(item.description),
         code: item.meta.code.snippet,
         link,
+        typeDefs,
         api,
         docs,
       };

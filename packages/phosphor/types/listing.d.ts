@@ -33,14 +33,5 @@ export type CreateListingInput = {
         toId: string;
     }[] | null;
 };
-/**
- * @title Create a listing
- *
- * @description Initiates the creation of a new collection based on provided data.
- * The function asynchronously interacts with a backend service, requesting
- * the creation of a collection. Upon success, the collection is registered
- * in the specified blockchain network with the provided attributes.
- *
- */
 export declare function createListing(data: CreateListingInput): Promise<void>;
 export {};

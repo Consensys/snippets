@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Nav } from "@/components/nav";
-import "../styles/globals.css";
+import "./globals.css";
 
 type Props = {
   children: React.ReactNode;

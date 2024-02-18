@@ -1,24 +1,26 @@
 import React, { FC } from "react";
 import Card from "@/components/card";
 import Hero from "@/components/hero";
-import { getModules, getSnippetsByModule } from "./actions/receipts";
+import { getPackages } from "./actions/snippets";
 
 export const revalidate = 0
 
 export default async function Page(): Promise<JSX.Element> {
   
-  const modules = await getModules();
+  const pkgs = await getPackages();
 
-  console.log(modules, 'modules')
   return (
     <div className="flex flex-col gap-4 w-full">
       <Hero />
       <div className="grid grid-cols-3 gap-4 w-full">
-        {modules.map(({ key, title, description, }) => (
+        {
+          // hardcoding the phosphor package for now
+        }
+        {pkgs['phosphor'].map(({ key, title, description, }) => (
           <Card
-            key={1}
+            key={key}
             name={title}
-            to={`/${encodeURIComponent(key)}`}
+            to={`/phosphor/${encodeURIComponent(key)}`}
             description={description}
            // image={image}
             // links={[
