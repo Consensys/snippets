@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run docs && next build",
+    "prebuild": "pnpm --dir .. run build-install && pnpm run docs",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "docs": "jsdoc -c jsdoc.json --explain > docs/documentation.json"
