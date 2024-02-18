@@ -7,11 +7,7 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "pnpm -r run build"
-  },
-  "dependencies": {
-    "jsdoc": "^4.0.2",
-    "typedoc": "^0.25.7"
+    "build-install": "pnpm install -r && pnpm -r run build"
   },
   "keywords": [],
   "author": "",
