@@ -7,8 +7,7 @@
   ],
   "main": "index.js",
   "scripts": {
-    "docs": "jsdoc -c jsdoc.json --explain > documentation.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm -r run build"
   },
   "dependencies": {
     "jsdoc": "^4.0.2",

@@ -17,8 +17,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "esprima": "^4.0.1",
-    "glob": "^10.3.10",
-    "globby": "^14.0.1",
     "jsdoc": "^4.0.2",
     "lucide-react": "^0.298.0",
     "next": "^14.1.0",
@@ -27,8 +25,7 @@
     "react-dom": "^18",
     "react-syntax-highlighter": "^15.5.0",
     "tailwind-merge": "^2.1.0",
-    "tailwindcss-animate": "^1.0.7",
-    "util": "^0.12.5"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/babel__generator": "^7.6.8",
@@ -42,10 +39,8 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
-    "nodemon": "^3.0.3",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "typedoc": "^0.25.7",
     "typescript": "^5"
   }
 }
