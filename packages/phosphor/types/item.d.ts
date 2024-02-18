@@ -1,49 +1,40 @@
-type CreateItemInput = {
-    collectionId: string;
-    attributes: Record<string, object | any[] | number | string | boolean | null>;
-    itemTypeId: string;
-};
 /**
- * @title Create a new item associated with the given collection
- *
- * @description Initiates the creation of a new collection based on provided data.
- * The function asynchronously interacts with a backend service, requesting
- * the creation of a collection. Upon success, the collection is registered
- * in the specified blockchain network with the provided attributes.
- *
+ * Item
+ * @title Item
+ * @docs ADO MOKO ME
+ * @module
  */
-export declare function createItem(data: CreateItemInput): Promise<void>;
-type ItemRoyaltyInfo = {
-    amount_bps: number;
-    receiver: string;
-};
-type EditableItem = {
-    itemId: string;
-    attributes: Record<string, object | any[] | number | string | boolean | null>;
-    itemTypeId: string;
-    royaltyInfo?: ItemRoyaltyInfo;
-};
-type EditItemMetadataInput = {
-    items: EditableItem[];
-};
 /**
- * @title Edit Item metadata
- *
- * @description Initiates the creation of a new collection based on provided data.
- * The function asynchronously interacts with a backend service, requesting
- * the creation of a collection. Upon success, the collection is registered
- * in the specified blockchain network with the provided attributes.
- *
+ * @typedef {Object} CreateItemInput
+ * @property {string} collectionId - The ID of the collection.
+ * @property {Record<string, object | any[] | number | string | boolean | null>} attributes - The attributes of the item.
+ * @property {string} itemTypeId - The ID of the item type.
  */
-export declare function editItemMetadata(data: EditItemMetadataInput): Promise<void>;
 /**
- * @title Edit Item
- *
- * @description Initiates the creation of a new collection based on provided data.
- * The function asynchronously interacts with a backend service, requesting
- * the creation of a collection. Upon success, the collection is registered
- * in the specified blockchain network with the provided attributes.
- *
+ * @function createItem
+ * @param {CreateItemInput} data - The data to create the item.
+ * @returns {Promise} A promise that resolves to the created item.
  */
-export declare function editItem(id: string, data: EditableItem): Promise<void>;
-export {};
+export declare function createItem(data: any): Promise<void>;
+/**
+ * @typedef {Object} ItemRoyaltyInfo
+ * @property {number} amount_bps - The amount in basis points.
+ * @property {string} receiver - The receiver of the royalty.
+ */
+/**
+ * @typedef {Object} EditableItem
+ * @property {string} itemId - The ID of the item.
+ * @property {Record<string, object | any[] | number | string | boolean | null>} attributes - The attributes of the item.
+ * @property {string} itemTypeId - The ID of the item type.
+ * @property {ItemRoyaltyInfo} [royaltyInfo] - The royalty information of the item.
+ */
+/**
+ * @typedef {Object} EditItemMetadataInput
+ * @property {EditableItem[]} items - The items to edit.
+ */
+/**
+ * @function editItemMetadata
+ * @param {EditItemMetadataInput} data - The data to create the item.
+ * @returns {Promise} A promise that resolves to the created item.
+ */
+export declare function editItemMetadata(data: any): Promise<void>;
