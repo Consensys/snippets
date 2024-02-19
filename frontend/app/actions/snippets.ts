@@ -57,6 +57,7 @@ export const getSnippetsByModule = async (
     )
     .map((item: any) => {
       const title = item.tags?.find((tag: any) => tag.title === "title")?.value;
+      const description = item.tags?.find((tag: any) => tag.title === "description")
       const api = item.tags?.find((tag: any) => tag.title === "api")?.value;
       const docs = item.tags?.find((tag: any) => tag.title === "docs")?.value;
 
@@ -82,7 +83,7 @@ export const getSnippetsByModule = async (
 
       return {
         title: title || item.name,
-        description: item.declaration && cleanHtml(item.description),
+        description: item.description && cleanHtml(item.description),
         code: item.meta.code.snippet,
         link,
         typeDefs,

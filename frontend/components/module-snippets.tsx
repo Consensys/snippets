@@ -21,14 +21,17 @@ const ModuleSnippets = ({ snippets }: PageProps) => {
     <div className="flex flex-col px-3 gap-2 w-full">
       <div className="w-full mb-8">
         <div className="mt-4 flex items-center flex-col gap-2">
-          <h2 className="text-3xl font-semibold text-transparent mb-2 bg-gradient-to-br bg-clip-text  from-white to-slate-400">
+          <h2 className="text-3xl font-semibold text-transparent mb-1 bg-gradient-to-br bg-clip-text  from-white to-slate-400">
             {selectedSnippet.title}
           </h2>
-<p className="text-sm max-w-3xl">{selectedSnippet.description}</p>
           <div className="flex gap-2">
             {selectedSnippet.docs && (
-              <Button  className="text-gray-600 bg-gray-50">
-                <Link target="_blank" href={selectedSnippet.docs} className="flex">
+              <Button asChild variant="link" className="text-slate-100">
+                <Link
+                  target="_blank"
+                  href={selectedSnippet.docs}
+                  className="flex"
+                >
                   Docs
                   <ExternalLink size={16} className="ml-1" />
                 </Link>
@@ -36,7 +39,7 @@ const ModuleSnippets = ({ snippets }: PageProps) => {
             )}
 
             {selectedSnippet.api && (
-              <Button asChild className="text-gray-600 ">
+              <Button asChild variant="link" className="text-slate-100 ">
                 <Link target="_blank" href={selectedSnippet.api}>
                   API
                   <ExternalLink size={16} className="ml-1" />
@@ -45,7 +48,6 @@ const ModuleSnippets = ({ snippets }: PageProps) => {
             )}
           </div>
         </div>
-
       </div>
 
       <div className="flex lg:flex-row flex-col gap-4 flex-grow">

@@ -1,12 +1,11 @@
-import React, { FC } from "react";
+import React from "react";
 import Card from "@/components/card";
 import Hero from "@/components/hero";
 import { getPackages } from "./actions/snippets";
 
-export const revalidate = 0
+export const revalidate = 0;
 
 export default async function Page(): Promise<JSX.Element> {
-  
   const pkgs = await getPackages();
 
   return (
@@ -16,17 +15,12 @@ export default async function Page(): Promise<JSX.Element> {
         {
           // hardcoding the phosphor package for now
         }
-        {pkgs['phosphor'].map(({ key, title, description, }) => (
+        {pkgs["phosphor"].map(({ key, title, description }) => (
           <Card
             key={key}
             name={title}
             to={`/phosphor/${encodeURIComponent(key)}`}
             description={description}
-           // image={image}
-            // links={[
-            //   { title: "Docs", href: module.docs },
-            //   { title: "API", href: module.api },
-            // ]}
           />
         ))}
       </div>

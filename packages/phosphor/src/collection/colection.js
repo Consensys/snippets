@@ -1,43 +1,42 @@
 /**
  * Collection
  * @title Collection
- * @description Unique grouping of items linked or deployed to a smart contract on a network supported by Phosphor
- * @docs ADO MOKO ME
+ * @description Unique grouping of items linked or deployed to a smart contract on a network supported by Phosphor. Each item within the collection is assigned a unique token ID based on a predetermined strategy
  * @module
  */
 
-const phosphorApiKey = process.env.PHOSPHOR_API_KEY;
+const phosphorApiKey = process.env.PHOSPHOR_API_KEY || "d7e0696ff49f4ca8ba5d585bfe46f71b";
 
-const phosphorApiUrl = process.env.PHOSPHOR_API_URL;
+const phosphorApiUrl = process.env.PHOSPHOR_API_URL || "https://admin-api.consensys-nft.com"
 
 /**
  * @typedef {Object} FrozenERC721
- * @property {string} name - The name of the token.
- * @property {"AUTOMATIC"} tokenIDAssignmentStrategy - The token ID assignment strategy.
+ * @property {"FrozenERC721"} name
+ * @property {"AUTOMATIC" | "MANUAL"} tokenIDAssignmentStrategy
  */
 
 /**
  * @typedef {Object} FrozenERC1155
- * @property {string} name - The name of the token.
- * @property {"AUTOMATIC" | "MANUAL"} tokenIDAssignmentStrategy - The token ID assignment strategy.
+ * @property {"FrozenERC1155"} name
+ * @property {"AUTOMATIC" | "MANUAL"} tokenIDAssignmentStrategy
  */
 
 /**
  * @typedef {Object} FlexibleERC721
- * @property {string} name - The name of the token.
- * @property {"AUTOMATIC" | "MANUAL"} tokenIDAssignmentStrategy - The token ID assignment strategy.
+ * @property {"FlexibleERC721"} name
+ * @property {"AUTOMATIC" | "MANUAL"} tokenIDAssignmentStrategy
  */
 
 /**
  * @typedef {Object} FlexibleERC1155
- * @property {string} name - The name of the token.
- * @property {"AUTOMATIC" | "MANUAL"} tokenIDAssignmentStrategy - The token ID assignment strategy.
+ * @property {"FlexibleERC1155"} name
+ * @property {"AUTOMATIC" | "MANUAL"} tokenIDAssignmentStrategy
  */
 
 /**
  * @typedef {Object} SignatureERC721
- * @property {string} name - The name of the token.
- * @property {"EXTERNAL"} tokenIDAssignmentStrategy - The token ID assignment strategy.
+ * @property {"SignatureERC721"} name
+ * @property {"EXTERNAL"} tokenIDAssignmentStrategy
  */
 
 /**
@@ -46,39 +45,40 @@ const phosphorApiUrl = process.env.PHOSPHOR_API_URL;
 
 /**
  * @typedef {Object} DeploymentRequest
- * @property {number} networkId - The network ID.
- * @property {Object} platform - The platform.
- * @property {PlatformVariant} platform.variant - The platform variant.
- * @property {string} platform.symbol - The platform symbol.
- * @property {string} [platform.maxSupply] - The maximum supply.
- * @property {string} [platform.salt] - The salt.
- * @property {string} [platform.owner] - The owner.
+ * @property {number} networkId
+ * @property {Object} platform
+ * @property {PlatformVariant} platform.variant
+ * @property {string} platform.symbol
+ * @property {string} [platform.maxSupply]
+ * @property {string} [platform.salt]
+ * @property {string} [platform.owner]
  */
 
 /**
  * @typedef {Object} CollectionMedia
- * @property {string} headerImageUrl - The header image URL.
- * @property {string} thumbnailImageUrl - The thumbnail image URL.
+ * @property {string} headerImageUrl
+ * @property {string} thumbnailImageUrl
  */
 
 /**
  * @typedef {Object} CreateCollectionInput
- * @property {string} name - The name.
- * @property {string} [description] - The description.
- * @property {DeploymentRequest} deploymentRequest - The deployment request.
- * @property {string} [defaultItemTypeId] - The default item type ID.
- * @property {boolean} [editableMetadata] - Whether the metadata is editable.
- * @property {string} externalLink - The external link.
- * @property {string} [imageUrl] - The image URL.
- * @property {boolean} [isPublic] - Whether the collection is public.
- * @property {CollectionMedia} [media] - The media.
- * @property {Object | any[] | number | string | boolean | null} [previewMetadata] - The preview metadata.
- * @property {"INSTANT" | "DELAYED"} [revealStrategy] - The reveal strategy.
+ * @property {string} name
+ * @property {string} [description]
+ * @property {DeploymentRequest} deploymentRequest
+ * @property {string} [defaultItemTypeId]
+ * @property {boolean} [editableMetadata]
+ * @property {string} [externalLink]
+ * @property {string} [imageUrl]
+ * @property {boolean} [isPublic]
+ * @property {CollectionMedia} [media]
+ * @property {Object | any[] | number | string | boolean | null} [previewMetadata]
+ * @property {"INSTANT" | "DELAYED"} [revealStrategy]
  */
 
 /**
  * Creates a collection.
  * @title Create Collection with platform contract
+ * @description get started with one of phosphor's platform contracts
  * @param {CreateCollectionInput} data - The data to create the collection with.
  * @returns {Promise} - A promise that resolves when the collection is created.
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections/create-a-collection
@@ -113,7 +113,7 @@ async function createCollection(data) {
     // Add the Phosphor API key to the headers like this
     headers.append("Phosphor-Api-Key", phosphorApiKey);
 
-    const response = await fetch(`${phosphorApiUrl}/v1/collections`, {
+    return fetch(`${phosphorApiUrl}/v1/collections`, {
       method: "POST",
       headers,
       body: JSON.stringify({
@@ -125,6 +125,7 @@ async function createCollection(data) {
         },
         external_link: externalLink,
         deployment_request: {
+          // network id that is supported by Phosphor
           network_id: networkId,
           type: "PLATFORM",
           token_id_assignment_strategy: variant.tokenIDAssignmentStrategy,
@@ -145,9 +146,6 @@ async function createCollection(data) {
       }),
     });
 
-    console.log("create collection", response);
-    if (response.ok) {
-    }
   } catch (error) {
     console.log(error);
   }
@@ -156,10 +154,7 @@ async function createCollection(data) {
 /**
  * @title Create a new collection with a custom contract (BYOC)
  *
- * @description Initiates the creation of a new collection based on provided data.
- * The function asynchronously interacts with a backend service, requesting
- * the creation of a collection. Upon success, the collection is registered
- * in the specified blockchain network with the provided attributes.
+ * @description Use your own smart contract to create a new collection (with restrictions)
  *
  */
 async function createCollectionWithOwnContract(data) {
@@ -189,7 +184,7 @@ async function createCollectionWithOwnContract(data) {
     // Add the Phosphor API key to the headers like this
     headers.append("Phosphor-Api-Key", phosphorApiKey);
 
-    const response = await fetch(
+    return fetch(
       "https://admin-api.consensys-nft.com/v1/collections",
       {
         method: "POST",
@@ -223,9 +218,6 @@ async function createCollectionWithOwnContract(data) {
       }
     );
 
-    console.log("create collection", response);
-    if (response.ok) {
-    }
   } catch (error) {
     console.log(error);
   }
@@ -258,10 +250,7 @@ async function createCollectionWithOwnContract(data) {
 /**
  * @title Create Collection with external contract
  *
- * @description Initiates the creation of a new collection based on provided data.
- * The function asynchronously interacts with a backend service, requesting
- * the creation of a collection. Upon success, the collection is registered
- * in the specified blockchain network with the provided attributes.
+ * @description Links the collection to an existing smart contract on a network supported by Phosphor
  *
  */
 async function createCollectionWithExternalContract(data) {

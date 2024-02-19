@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -28,12 +29,12 @@ const CodeBlock = ({
     <div className="relative w-[700px]">
       <div className="absolute flex top-4 right-4">
         <CopyToClipboard text={code} onCopy={handleCopy}>
-          <Button className=" text-sm text-white bg-transparent border-none cursor-pointer ">
+          <Button className=" text-sm p-2 text-white bg-transparent border-none cursor-pointer ">
             {isCopied ? "Copied!" : <Copy color="white" size="18px" />}
           </Button>
         </CopyToClipboard>
         {github && (
-          <Button asChild className="text-slate-400">
+          <Button asChild className="text-slate-400 p-2">
             <Link target="_blank" href={github}>
               <GithubIcon size={18} />
             </Link>
@@ -41,9 +42,9 @@ const CodeBlock = ({
         )}
 
         {types && (
-          <Button asChild className="text-slate-400">
+          <Button asChild className="text-slate-400 p-2">
             <Link target="_blank" href={types}>
-              types
+            <Image alt="logo" width={18} height={18} src="/images/typescript.svg" />
             </Link>
           </Button>
         )}

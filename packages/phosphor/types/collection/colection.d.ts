@@ -1,21 +1,21 @@
 export type FrozenERC721 = {
-    name: string;
-    tokenIDAssignmentStrategy: "AUTOMATIC";
+    name: "FrozenERC721";
+    tokenIDAssignmentStrategy: "AUTOMATIC" | "MANUAL";
 };
 export type FrozenERC1155 = {
-    name: string;
+    name: "FrozenERC1155";
     tokenIDAssignmentStrategy: "AUTOMATIC" | "MANUAL";
 };
 export type FlexibleERC721 = {
-    name: string;
+    name: "FlexibleERC721";
     tokenIDAssignmentStrategy: "AUTOMATIC" | "MANUAL";
 };
 export type FlexibleERC1155 = {
-    name: string;
+    name: "FlexibleERC1155";
     tokenIDAssignmentStrategy: "AUTOMATIC" | "MANUAL";
 };
 export type SignatureERC721 = {
-    name: string;
+    name: "SignatureERC721";
     tokenIDAssignmentStrategy: "EXTERNAL";
 };
 export type PlatformVariant = FrozenERC721 | FrozenERC1155 | FlexibleERC721 | FlexibleERC1155 | SignatureERC721;
@@ -39,7 +39,7 @@ export type CreateCollectionInput = {
     deploymentRequest: DeploymentRequest;
     defaultItemTypeId?: string;
     editableMetadata?: boolean;
-    externalLink: string;
+    externalLink?: string;
     imageUrl?: string;
     isPublic?: boolean;
     media?: CollectionMedia;
@@ -47,5 +47,5 @@ export type CreateCollectionInput = {
     revealStrategy?: "INSTANT" | "DELAYED";
 };
 export function createCollection(data: CreateCollectionInput): Promise<any>;
-export function createCollectionWithOwnContract(data: any): Promise<void>;
+export function createCollectionWithOwnContract(data: any): Promise<Response>;
 export function createCollectionWithExternalContract(data: any): Promise<void>;
