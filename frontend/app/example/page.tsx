@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { collection, item, listing } from "phosphor";
+import { collection, item } from "phosphor";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -85,28 +85,28 @@ const Page = () => {
     console.log(await resp.json());
   }
 
-  async function editItemMeta() {
-    const { editItemMetadata } = item;
+  // async function editItemMeta() {
+  //   const { editItemMetadata } = item;
 
-    const resp = await editItemMetadata({
-      items: [  {
-        itemId: "7642f788-3971-4b08-990e-4e2c100f8c13",
-        attributes: {
-          title: "titleXX",
-          description: "description2",
-        },
-      }, 
-      {
-        itemId: "e580f392-f257-49fa-9930-bf045c4b0c79",
-        attributes: {
-          title: "titleYYY",
-          description: "description2",
-        },
-      },],
-    });
+  //   const resp = await editItemMetadata({
+  //     items: [  {
+  //       itemId: "7642f788-3971-4b08-990e-4e2c100f8c13",
+  //       attributes: {
+  //         title: "titleXX",
+  //         description: "description2",
+  //       },
+  //     }, 
+  //     {
+  //       itemId: "e580f392-f257-49fa-9930-bf045c4b0c79",
+  //       attributes: {
+  //         title: "titleYYY",
+  //         description: "description2",
+  //       },
+  //     },],
+  //   });
 
-    console.log(await resp.json());
-  }
+  //   console.log(await resp.json());
+  // }
 
   async function lock() {
     const { lockItems } = item;
@@ -147,30 +147,30 @@ const Page = () => {
     console.log(await resp.json());
   }
 
-  async function list() {
-    const { createListing } = listing
+  // async function list() {
+  //   const { createListing } = listing
 
-    const resp = await createListing({
-      currency: "ETH",
-      maxQuantityPerTx: 1,
-      paymentProviders: ["BETA_FREE_MINT"],
-      policy: {
-        ethAddresses: ["0x4817b6eB2cB0c9e88A2c46C142E3a94011Df7126"],
-        txPayer: "BUYER"
-      },
-      price: "1000000000000000000",
-      tokenIds: ["e580f392-f257-49fa-9930-bf045c4b0c79"],
-      settlementCurrency: {
-        "MINT_VOUCHER": "ETH"
-      }
-    })
+  //   const resp = await createListing({
+  //     currency: "ETH",
+  //     maxQuantityPerTx: 1,
+  //     paymentProviders: ["BETA_FREE_MINT"],
+  //     policy: {
+  //       ethAddresses: ["0x4817b6eB2cB0c9e88A2c46C142E3a94011Df7126"],
+  //       txPayer: "BUYER"
+  //     },
+  //     price: "1000000000000000000",
+  //     tokenIds: ["e580f392-f257-49fa-9930-bf045c4b0c79"],
+  //     settlementCurrency: {
+  //       "MINT_VOUCHER": "ETH"
+  //     }
+  //   })
 
-    console.log(await resp.json());
+  //   console.log(await resp.json());
 
-  }
+  // }
 
   return (
-    <Button onClick={async () => await list()}>
+    <Button>
       Create Collection
     </Button>
   );
