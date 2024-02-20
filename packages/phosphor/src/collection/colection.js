@@ -282,9 +282,9 @@ async function createCollectionWithOwnContract(data) {
  */
 
 /**
- * @title Create a new collection with a custom contract (BYOC)
+ * @title Create a new collection with a External contract
  *
- * @description Use your own smart contract to create a new collection (with restrictions)
+ * @description Use an external smart contract to create a new collection (with restrictions)
  *
  * @param {CreateCollectionWithExternalContractInput} data - The data to create the collection with.
  * @returns {Promise} - A promise that resolves when the collection is created.
