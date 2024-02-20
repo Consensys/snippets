@@ -47,7 +47,6 @@ export const getSnippetsByModule = async (
   packgeName: string,
   moduleName: string
 ) => {
-
   return data
     .filter(
       (item) =>
@@ -57,7 +56,9 @@ export const getSnippetsByModule = async (
     )
     .map((item: any) => {
       const title = item.tags?.find((tag: any) => tag.title === "title")?.value;
-      const description = item.tags?.find((tag: any) => tag.title === "description")
+      const description = item.tags?.find(
+        (tag: any) => tag.title === "description"
+      );
       const api = item.tags?.find((tag: any) => tag.title === "api")?.value;
       const docs = item.tags?.find((tag: any) => tag.title === "docs")?.value;
 
@@ -73,13 +74,18 @@ export const getSnippetsByModule = async (
         .slice(index)
         .join("/")}#L${lineno}`;
 
+      // Building a link that points to the type definitions in the github repo
+     
       const pkgPath = item.meta.path;
 
-      // Building a link that points to the type definitions in the github repo
-      const typeDefs = `${process.env.GITHUB_REPO_URL}/${pkgPath
-        .split("/")
-        .slice(parts.indexOf("packages"))
-        .join("/")}/types/${moduleName}`;
+      let pathParts = pkgPath.split(path.sep);
+
+      let srcIndex = pathParts.indexOf("src");
+      if (srcIndex !== -1) {
+        pathParts.splice(srcIndex + 1, 0, "types");
+      }
+
+      const typeDefs = pathParts.join(path.sep);
 
       return {
         title: title || item.name,

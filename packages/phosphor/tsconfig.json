@@ -4,7 +4,7 @@
     "emitDeclarationOnly": true,
     "allowJs": true,
     "checkJs": true,
-    "declarationDir": "./types",
+    "declarationDir": "src/types",
     "removeComments": true
   },
   "include": ["src/**/*"],
