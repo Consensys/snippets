@@ -152,10 +152,40 @@ async function createCollection(data) {
 }
 
 /**
+ * @typedef {Object} OwnContractDeploymentRequest
+ * @property {number} networkId
+ * @property {Array.<object | any[] | number | string | boolean | null>} abi
+ * @property {string} byteCode
+ * @property {Array.<object | any[] | number | string | boolean | null>} constructorArgs
+ * @property {string} [salt]
+ * @property {"AUTOMATIC" | "MANUAL" | "EXTERNAL" | null} [tokenIDAssignmentStrategy]
+ */
+
+
+/**
+ * @typedef {Object} CreateCollectionWithOwnContractInput
+ * @property {string} name
+ * @property {string} [description]
+ * @property {OwnContractDeploymentRequest} deploymentRequest
+ * @property {string} [defaultItemTypeId]
+ * @property {boolean} [editableMetadata]
+ * @property {string} [externalLink]
+ * @property {string} [imageUrl]
+ * @property {boolean} [isPublic]
+ * @property {CollectionMedia} [media]
+ * @property {Object | any[] | number | string | boolean | null} [previewMetadata]
+ * @property {"INSTANT" | "DELAYED"} [revealStrategy]
+ */
+
+/**
  * @title Create a new collection with a custom contract (BYOC)
  *
  * @description Use your own smart contract to create a new collection (with restrictions)
  *
+ * @param {CreateCollectionWithOwnContractInput} data - The data to create the collection with.
+ * @returns {Promise} - A promise that resolves when the collection is created.
+ * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions
+ * @api https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post
  */
 async function createCollectionWithOwnContract(data) {
   const {
@@ -171,10 +201,9 @@ async function createCollectionWithOwnContract(data) {
     media,
     previewMetadata,
     revealStrategy,
-    tokenIDAssignmentStrategy,
   } = data;
 
-  const { networkId, abi, byteCode, constructorArgs, salt } = deploymentRequest;
+  const { networkId, abi, byteCode, constructorArgs, salt, tokenIDAssignmentStrategy } = deploymentRequest;
 
   try {
     const headers = new Headers();
@@ -203,7 +232,7 @@ async function createCollectionWithOwnContract(data) {
             token_id_assignment_strategy: tokenIDAssignmentStrategy,
             custom: {
               abi,
-              byte_code: byteCode,
+              bytecode: byteCode,
               constructor_args: constructorArgs,
               salt,
             },
@@ -223,35 +252,44 @@ async function createCollectionWithOwnContract(data) {
   }
 }
 
-// export type DeploymentRequestExternalContract = {
-//   networkId: number;
-//   address: string;
-//   tokenFilter: Record<string, string> | null;
-//   tokenType: "ERC721" | "ERC1155";
-//   salt?: string;
-// };
 
-// export type CreateExternalCollectionInput = {
-//   name: string;
-//   description?: string;
-//   deploymentRequest: DeploymentRequestExternalContract;
-
-//   defaultItemTypeId?: string;
-//   editableMetadata?: boolean;
-//   externalLink: string;
-//   imageUrl?: string;
-//   isPublic?: boolean;
-//   media?: CollectionMedia;
-//   previewMetadata?: object | any[] | number | string | boolean | null;
-//   revealStrategy?: "INSTANT" | "DELAYED";
-//   tokenIDAssignmentStrategy: "AUTOMATIC" | "MANUAL" | "EXTERNAL" | null;
-// };
 
 /**
- * @title Create Collection with external contract
+ * @typedef {Object} ExternalContractDeploymentRequest
+ * @property {number} networkId
+ * @property {string} address
+ * @property {string} byteCode
+ * @property {Record<string, object | any[] | number | string | boolean | null>}  tokenFilter
+ * @property {string} [salt]
+ * @property {"ERC721" | "ERC1155"} tokenType
+ * @property {"AUTOMATIC" | "MANUAL" | "EXTERNAL" | null} [tokenIDAssignmentStrategy]
+ */
+
+
+/**
+ * @typedef {Object} CreateCollectionWithExternalContractInput
+ * @property {string} name
+ * @property {string} [description]
+ * @property {ExternalContractDeploymentRequest} deploymentRequest
+ * @property {string} [defaultItemTypeId]
+ * @property {boolean} [editableMetadata]
+ * @property {string} [externalLink]
+ * @property {string} [imageUrl]
+ * @property {boolean} [isPublic]
+ * @property {CollectionMedia} [media]
+ * @property {Object | any[] | number | string | boolean | null} [previewMetadata]
+ * @property {"INSTANT" | "DELAYED"} [revealStrategy]
+ */
+
+/**
+ * @title Create a new collection with a custom contract (BYOC)
  *
- * @description Links the collection to an existing smart contract on a network supported by Phosphor
+ * @description Use your own smart contract to create a new collection (with restrictions)
  *
+ * @param {CreateCollectionWithExternalContractInput} data - The data to create the collection with.
+ * @returns {Promise} - A promise that resolves when the collection is created.
+ * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions
+ * @api https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post
  */
 async function createCollectionWithExternalContract(data) {
   const {
@@ -267,10 +305,9 @@ async function createCollectionWithExternalContract(data) {
     media,
     previewMetadata,
     revealStrategy,
-    tokenIDAssignmentStrategy,
   } = data;
 
-  const { networkId, address, tokenFilter, tokenType, salt } =
+  const { networkId, address, tokenFilter, tokenType, salt, tokenIDAssignmentStrategy} =
     deploymentRequest;
 
   try {

@@ -121,11 +121,7 @@ async function createItem(data) {
 /**
  * @title Edit Item
  *
- * @description Initiates the creation of a new collection based on provided data.
- * The function asynchronously interacts with a backend service, requesting
- * the creation of a collection. Upon success, the collection is registered
- * in the specified blockchain network with the provided attributes.
- * @param {EditableItem} data - The data to create the item.
+ * @description Specified attributes will replace all existing ones and must comply with the item type schema. Once an item is minted, its attributes can't be updated unless the collection allows metadata editing
  */
 async function editItem(data) {
   const { itemId, attributes, itemTypeId, royaltyInfo } = data;
@@ -251,7 +247,7 @@ async function mintItems(data) {
 /**
  * @title Check mint request
  *
- * @description Requests the minting of one or more items.
+ * @description Check the status of a mint request
  * @param {string} mintRequestId - Id of the mint request
  */
 async function checkMintRequest(mintRequestId) {

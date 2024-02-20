@@ -26,7 +26,7 @@ const ModuleSnippets = ({ snippets }: PageProps) => {
           </h2>
           <div className="flex gap-2">
             {selectedSnippet.docs && (
-              <Button asChild variant="link" className="text-slate-100">
+              <Button asChild variant="secondary">
                 <Link
                   target="_blank"
                   href={selectedSnippet.docs}

@@ -27,24 +27,31 @@ const CodeBlock = ({
 
   return (
     <div className="relative w-[700px]">
-      <div className="absolute flex top-4 right-4">
+      <div className="absolute flex top-4 gap-2 right-4">
         <CopyToClipboard text={code} onCopy={handleCopy}>
-          <Button className=" text-sm p-2 text-white bg-transparent border-none cursor-pointer ">
+          <Button variant="secondary">
             {isCopied ? "Copied!" : <Copy color="white" size="18px" />}
           </Button>
         </CopyToClipboard>
         {github && (
-          <Button asChild className="text-slate-400 p-2">
+          <Button asChild variant="secondary">
             <Link target="_blank" href={github}>
-              <GithubIcon size={18} />
+              code <GithubIcon size={18} className="ml-1" />
             </Link>
           </Button>
         )}
 
         {types && (
-          <Button asChild className="text-slate-400 p-2">
+          <Button asChild variant="secondary">
             <Link target="_blank" href={types}>
-            <Image alt="logo" width={18} height={18} src="/images/typescript.svg" />
+              types
+              <Image
+                alt="logo"
+                className="ml-1"
+                width={18}
+                height={18}
+                src="/images/typescript.svg"
+              />
             </Link>
           </Button>
         )}

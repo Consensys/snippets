@@ -38,7 +38,7 @@ export type MintItemsInput = {
     toAddresses?: string[];
 };
 export function createItem(data: CreateItemInput): Promise<any>;
-export function editItem(data: EditableItem): Promise<Response>;
+export function editItem(data: any): Promise<Response>;
 export function lockItems(data: LockItemsInput): Promise<Response>;
 export function mintItems(data: MintItemsInput): Promise<Response>;
 export function checkMintRequest(mintRequestId: string): Promise<Response>;

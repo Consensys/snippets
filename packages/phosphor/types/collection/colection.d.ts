@@ -46,6 +46,49 @@ export type CreateCollectionInput = {
     previewMetadata?: any | any[] | number | string | boolean | null;
     revealStrategy?: "INSTANT" | "DELAYED";
 };
+export type OwnContractDeploymentRequest = {
+    networkId: number;
+    abi: Array<object | any[] | number | string | boolean | null>;
+    byteCode: string;
+    constructorArgs: Array<object | any[] | number | string | boolean | null>;
+    salt?: string;
+    tokenIDAssignmentStrategy?: "AUTOMATIC" | "MANUAL" | "EXTERNAL" | null;
+};
+export type CreateCollectionWithOwnContractInput = {
+    name: string;
+    description?: string;
+    deploymentRequest: OwnContractDeploymentRequest;
+    defaultItemTypeId?: string;
+    editableMetadata?: boolean;
+    externalLink?: string;
+    imageUrl?: string;
+    isPublic?: boolean;
+    media?: CollectionMedia;
+    previewMetadata?: any | any[] | number | string | boolean | null;
+    revealStrategy?: "INSTANT" | "DELAYED";
+};
+export type ExternalContractDeploymentRequest = {
+    networkId: number;
+    address: string;
+    byteCode: string;
+    tokenFilter: Record<string, object | any[] | number | string | boolean | null>;
+    salt?: string;
+    tokenType: "ERC721" | "ERC1155";
+    tokenIDAssignmentStrategy?: "AUTOMATIC" | "MANUAL" | "EXTERNAL" | null;
+};
+export type CreateCollectionWithExternalContractInput = {
+    name: string;
+    description?: string;
+    deploymentRequest: ExternalContractDeploymentRequest;
+    defaultItemTypeId?: string;
+    editableMetadata?: boolean;
+    externalLink?: string;
+    imageUrl?: string;
+    isPublic?: boolean;
+    media?: CollectionMedia;
+    previewMetadata?: any | any[] | number | string | boolean | null;
+    revealStrategy?: "INSTANT" | "DELAYED";
+};
 export function createCollection(data: CreateCollectionInput): Promise<any>;
-export function createCollectionWithOwnContract(data: any): Promise<Response>;
-export function createCollectionWithExternalContract(data: any): Promise<void>;
+export function createCollectionWithOwnContract(data: CreateCollectionWithOwnContractInput): Promise<any>;
+export function createCollectionWithExternalContract(data: CreateCollectionWithExternalContractInput): Promise<any>;
