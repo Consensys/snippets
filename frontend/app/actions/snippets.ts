@@ -75,14 +75,19 @@ export const getSnippetsByModule = async (
         .join("/")}#L${lineno}`;
 
       // Building a link that points to the type definitions in the github repo
-     
-      const pkgPath = item.meta.path;
+      let pkgPath = item.meta.path;
 
       let pathParts = pkgPath.split(path.sep);
 
+      // Insert "types" after "src"
       let srcIndex = pathParts.indexOf("src");
       if (srcIndex !== -1) {
         pathParts.splice(srcIndex + 1, 0, "types");
+      }
+
+      let pkgIndex = pathParts.indexOf("packages");
+      if (pkgIndex !== -1) {
+        pathParts = [process.env.GITHUB_REPO_URL, ...pathParts.slice(pkgIndex)];
       }
 
       const typeDefs = pathParts.join(path.sep);
