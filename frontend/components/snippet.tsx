@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import CodeBlock from "@/components/code-block";
 
 type PageProps = {
@@ -9,7 +8,7 @@ type PageProps = {
 
 const Snippet = ({ snippet }: PageProps) => {
   return (
-    <div className="flex flex-col lg:flex-row justify-between">
+    <div className="flex flex-col lg:flex-row w-full">
       <CodeBlock code={snippet.code} github={snippet.link} types={snippet.typeDefs} />
     </div>
   );

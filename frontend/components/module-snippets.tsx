@@ -2,8 +2,6 @@
 
 import * as React from "react";
 
-import { Badge, badgeVariants } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import Snippet from "./snippet";
 import MenuCard from "./menu-card";
 import Link from "next/link";
@@ -50,14 +48,15 @@ const ModuleSnippets = ({ snippets }: PageProps) => {
         </div>
       </div>
 
-      <div className="flex lg:flex-row flex-col gap-4 flex-grow">
-        <div className="flex flex-row lg:flex-col gap-2 mt-2">
+      <div className="flex lg:flex-row flex-col gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3 mt-2 w-full h-fit lg:max-w-sm flex-wrap">
           {snippets?.map((snippet, index) => (
             <div
               key={index}
               onClick={() => {
                 setSelectedSnippet(snippet);
               }}
+              className="h-fit"
             >
               <MenuCard
                 key={1}

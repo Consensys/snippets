@@ -11,7 +11,7 @@ export default async function Page(): Promise<JSX.Element> {
   return (
     <div className="flex flex-col gap-4 w-full">
       <Hero />
-      <div className="grid grid-cols-3 gap-4 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
         {
           // hardcoding the phosphor package for now
         }
