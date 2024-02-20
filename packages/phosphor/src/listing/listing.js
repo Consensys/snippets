@@ -52,9 +52,9 @@
 //  * @property {TokenRange[]|null} [tokenRanges]
 //  */
 
-// const phosphorApiKey = process.env.PHOSPHOR_API_KEY || "d7e0696ff49f4ca8ba5d585bfe46f71b";
+// const phosphorApiKey = process.env.PHOSPHOR_API_KEY;
 
-// const phosphorApiUrl = process.env.PHOSPHOR_API_URL || "https://admin-api.consensys-nft.com"
+// const phosphorApiUrl = process.env.PHOSPHOR_API_URL"
 
 // /**
 //  * @title Create a listing

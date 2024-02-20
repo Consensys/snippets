@@ -5,11 +5,9 @@
  * @module
  */
 
-const phosphorApiKey =
-  process.env.PHOSPHOR_API_KEY || "d7e0696ff49f4ca8ba5d585bfe46f71b";
+const phosphorApiKey = process.env.PHOSPHOR_API_KEY;
 
-const phosphorApiUrl =
-  process.env.PHOSPHOR_API_URL || "https://admin-api.consensys-nft.com";
+const phosphorApiUrl = process.env.PHOSPHOR_API_URL;
 
 /**
  * @typedef {Object} Attributes
@@ -162,7 +160,7 @@ async function createItem(data) {
  *
  * @description Locks items based on their IDs or a collection ID.
  * @param {LockItemsInput} data - The data to lock the items.
- * 
+ *
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/locking
  * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1bulk/post
  */
@@ -280,7 +278,7 @@ async function checkMintRequest(mintRequestId) {
  *
  * @description Delete items that are not minted or not being minted
  * @param {string} itemId - Id of the item
- * 
+ *
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/delete-an-item
  * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1lock/post
  */
