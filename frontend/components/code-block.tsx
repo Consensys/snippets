@@ -26,7 +26,7 @@ const CodeBlock = ({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full lg:max-w-2xl">
       <div className="absolute flex top-4 gap-2 right-4">
         <CopyToClipboard text={code} onCopy={handleCopy}>
           <Button variant="secondary">
