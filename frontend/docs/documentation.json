@@ -1804,7 +1804,7 @@
         "memberof": "module:phosphor/src/collection/colection"
     },
     {
-        "comment": "/**\n * @typedef {Object} OwnContractDeploymentRequest\n * @property {number} networkId\n * @property {string} abi\n * @property {string} byteCode\n * @property {Array.<object | any[] | number | string | boolean | null>} constructorArgs\n * @property {string} [salt]\n * @property {\"AUTOMATIC\" | \"MANUAL\" | \"EXTERNAL\" | null} [tokenIDAssignmentStrategy]\n */",
+        "comment": "/**\n * @typedef {Object} OwnContractDeploymentRequest\n * @property {number} networkId\n * @property {Array.<object | any[] | number | string | boolean | null>} abi\n * @property {string} byteCode\n * @property {Array.<object | any[] | number | string | boolean | null>} constructorArgs\n * @property {string} [salt]\n * @property {\"AUTOMATIC\" | \"MANUAL\" | \"EXTERNAL\" | null} [tokenIDAssignmentStrategy]\n */",
         "meta": {
             "filename": "colection.js",
             "lineno": 154,
@@ -1831,7 +1831,7 @@
             {
                 "type": {
                     "names": [
-                        "string"
+                        "Array.<(object|Array.<any>|number|string|boolean|null)>"
                     ]
                 },
                 "name": "abi"
@@ -2004,14 +2004,14 @@
         "memberof": "module:phosphor/src/collection/colection"
     },
     {
-        "comment": "/**\n * @title Create a new collection with a custom contract (BYOC)\n *\n * @description Use your own smart contract to create a new collection (with restrictions)\n *\n * @param {CreateCollectionWithOwnContractInput} data - The data to create the collection with.\n */",
+        "comment": "/**\n * @title Create a new collection with a custom contract (BYOC)\n *\n * @description Use your own smart contract to create a new collection (with restrictions)\n *\n * @param {CreateCollectionWithOwnContractInput} data - The data to create the collection with.\n * @returns {Promise} - A promise that resolves when the collection is created.\n * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions\n * @api https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post\n */",
         "meta": {
             "range": [
-                5560,
-                7198
+                5897,
+                7534
             ],
             "filename": "colection.js",
-            "lineno": 187,
+            "lineno": 190,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2021,7 +2021,7 @@
                 "paramnames": [
                     "data"
                 ],
-                "snippet": "async function createCollectionWithOwnContract(data) {\n  const {\n    name,\n    description,\n    deploymentRequest,\n\n    defaultItemTypeId,\n    editableMetadata,\n    externalLink,\n    imageUrl,\n    isPublic,\n    media,\n    previewMetadata,\n    revealStrategy,\n  } = data;\n\n  const { networkId, abi, byteCode, constructorArgs, salt, tokenIDAssignmentStrategy } = deploymentRequest;\n\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n\n    // Add the Phosphor API key to the headers like this\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return fetch(\n      \"https://admin-api.consensys-nft.com/v1/collections\",\n      {\n        method: \"POST\",\n        headers,\n        body: JSON.stringify({\n          name,\n          description,\n          media: {\n            header_image_url: media?.headerImageUrl,\n            thumbnail_image_url: media?.thumbnailImageUrl,\n          },\n          external_link: externalLink,\n          deployment_request: {\n            network_id: networkId,\n            type: \"CUSTOM\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            custom: {\n              abi,\n              byte_code: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            },\n          },\n          is_public: isPublic,\n          preview_metadata: previewMetadata,\n          default_item_type_id: defaultItemTypeId,\n          editable_metadata: editableMetadata,\n          image_url: imageUrl,\n          reveal_strategy: revealStrategy,\n        }),\n      }\n    );\n\n  } catch (error) {\n    console.log(error);\n  }\n}",
+                "snippet": "async function createCollectionWithOwnContract(data) {\n  const {\n    name,\n    description,\n    deploymentRequest,\n\n    defaultItemTypeId,\n    editableMetadata,\n    externalLink,\n    imageUrl,\n    isPublic,\n    media,\n    previewMetadata,\n    revealStrategy,\n  } = data;\n\n  const { networkId, abi, byteCode, constructorArgs, salt, tokenIDAssignmentStrategy } = deploymentRequest;\n\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n\n    // Add the Phosphor API key to the headers like this\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return fetch(\n      \"https://admin-api.consensys-nft.com/v1/collections\",\n      {\n        method: \"POST\",\n        headers,\n        body: JSON.stringify({\n          name,\n          description,\n          media: {\n            header_image_url: media?.headerImageUrl,\n            thumbnail_image_url: media?.thumbnailImageUrl,\n          },\n          external_link: externalLink,\n          deployment_request: {\n            network_id: networkId,\n            type: \"CUSTOM\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            custom: {\n              abi,\n              bytecode: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            },\n          },\n          is_public: isPublic,\n          preview_metadata: previewMetadata,\n          default_item_type_id: defaultItemTypeId,\n          editable_metadata: editableMetadata,\n          image_url: imageUrl,\n          reveal_strategy: revealStrategy,\n        }),\n      }\n    );\n\n  } catch (error) {\n    console.log(error);\n  }\n}",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
             },
             "vars": {
@@ -2035,6 +2035,18 @@
                 "title": "title",
                 "text": "Create a new collection with a custom contract (BYOC)",
                 "value": "Create a new collection with a custom contract (BYOC)"
+            },
+            {
+                "originalTitle": "docs",
+                "title": "docs",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions"
+            },
+            {
+                "originalTitle": "api",
+                "title": "api",
+                "text": "https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post",
+                "value": "https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post"
             }
         ],
         "description": "<p>Use your own smart contract to create a new collection (with restrictions)</p>",
@@ -2049,6 +2061,16 @@
                 "name": "data"
             }
         ],
+        "returns": [
+            {
+                "type": {
+                    "names": [
+                        "Promise"
+                    ]
+                },
+                "description": "<ul>\n<li>A promise that resolves when the collection is created.</li>\n</ul>"
+            }
+        ],
         "name": "createCollectionWithOwnContract",
         "longname": "module:phosphor/src/collection/colection~createCollectionWithOwnContract",
         "kind": "function",
@@ -2060,11 +2082,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5629,
-                5633
+                5966,
+                5970
             ],
             "filename": "colection.js",
-            "lineno": 189,
+            "lineno": 192,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2087,11 +2109,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5639,
-                5650
+                5976,
+                5987
             ],
             "filename": "colection.js",
-            "lineno": 190,
+            "lineno": 193,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2114,11 +2136,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5656,
-                5673
+                5993,
+                6010
             ],
             "filename": "colection.js",
-            "lineno": 191,
+            "lineno": 194,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2141,11 +2163,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5680,
-                5697
+                6017,
+                6034
             ],
             "filename": "colection.js",
-            "lineno": 193,
+            "lineno": 196,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2168,11 +2190,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5703,
-                5719
+                6040,
+                6056
             ],
             "filename": "colection.js",
-            "lineno": 194,
+            "lineno": 197,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2195,11 +2217,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5725,
-                5737
+                6062,
+                6074
             ],
             "filename": "colection.js",
-            "lineno": 195,
+            "lineno": 198,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2222,11 +2244,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5743,
-                5751
+                6080,
+                6088
             ],
             "filename": "colection.js",
-            "lineno": 196,
+            "lineno": 199,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2249,11 +2271,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5757,
-                5765
+                6094,
+                6102
             ],
             "filename": "colection.js",
-            "lineno": 197,
+            "lineno": 200,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2276,11 +2298,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5771,
-                5776
+                6108,
+                6113
             ],
             "filename": "colection.js",
-            "lineno": 198,
+            "lineno": 201,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2303,11 +2325,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5782,
-                5797
+                6119,
+                6134
             ],
             "filename": "colection.js",
-            "lineno": 199,
+            "lineno": 202,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2330,11 +2352,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5803,
-                5817
+                6140,
+                6154
             ],
             "filename": "colection.js",
-            "lineno": 200,
+            "lineno": 203,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2357,11 +2379,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5842,
-                5851
+                6179,
+                6188
             ],
             "filename": "colection.js",
-            "lineno": 203,
+            "lineno": 206,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2384,11 +2406,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5853,
-                5856
+                6190,
+                6193
             ],
             "filename": "colection.js",
-            "lineno": 203,
+            "lineno": 206,
             "columnno": 21,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2411,11 +2433,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5858,
-                5866
+                6195,
+                6203
             ],
             "filename": "colection.js",
-            "lineno": 203,
+            "lineno": 206,
             "columnno": 26,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2438,11 +2460,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5868,
-                5883
+                6205,
+                6220
             ],
             "filename": "colection.js",
-            "lineno": 203,
+            "lineno": 206,
             "columnno": 36,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2465,11 +2487,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5885,
-                5889
+                6222,
+                6226
             ],
             "filename": "colection.js",
-            "lineno": 203,
+            "lineno": 206,
             "columnno": 53,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2492,11 +2514,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5891,
-                5916
+                6228,
+                6253
             ],
             "filename": "colection.js",
-            "lineno": 203,
+            "lineno": 206,
             "columnno": 59,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2519,11 +2541,11 @@
         "comment": "",
         "meta": {
             "range": [
-                5959,
-                5982
+                6296,
+                6319
             ],
             "filename": "colection.js",
-            "lineno": 206,
+            "lineno": 209,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2547,11 +2569,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6250,
-                6264
+                6587,
+                6601
             ],
             "filename": "colection.js",
-            "lineno": 216,
+            "lineno": 219,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2574,11 +2596,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6274,
-                6281
+                6611,
+                6618
             ],
             "filename": "colection.js",
-            "lineno": 217,
+            "lineno": 220,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2601,11 +2623,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6291,
-                7131
+                6628,
+                7467
             ],
             "filename": "colection.js",
-            "lineno": 218,
+            "lineno": 221,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2613,7 +2635,7 @@
                 "name": "body",
                 "type": "CallExpression",
                 "value": "",
-                "snippet": "body: JSON.stringify({\n          name,\n          description,\n          media: {\n            header_image_url: media?.headerImageUrl,\n            thumbnail_image_url: media?.thumbnailImageUrl,\n          },\n          external_link: externalLink,\n          deployment_request: {\n            network_id: networkId,\n            type: \"CUSTOM\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            custom: {\n              abi,\n              byte_code: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            },\n          },\n          is_public: isPublic,\n          preview_metadata: previewMetadata,\n          default_item_type_id: defaultItemTypeId,\n          editable_metadata: editableMetadata,\n          image_url: imageUrl,\n          reveal_strategy: revealStrategy,\n        })",
+                "snippet": "body: JSON.stringify({\n          name,\n          description,\n          media: {\n            header_image_url: media?.headerImageUrl,\n            thumbnail_image_url: media?.thumbnailImageUrl,\n          },\n          external_link: externalLink,\n          deployment_request: {\n            network_id: networkId,\n            type: \"CUSTOM\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            custom: {\n              abi,\n              bytecode: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            },\n          },\n          is_public: isPublic,\n          preview_metadata: previewMetadata,\n          default_item_type_id: defaultItemTypeId,\n          editable_metadata: editableMetadata,\n          image_url: imageUrl,\n          reveal_strategy: revealStrategy,\n        })",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
             }
         },
@@ -2628,11 +2650,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6324,
-                6328
+                6661,
+                6665
             ],
             "filename": "colection.js",
-            "lineno": 219,
+            "lineno": 222,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2655,11 +2677,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6340,
-                6351
+                6677,
+                6688
             ],
             "filename": "colection.js",
-            "lineno": 220,
+            "lineno": 223,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2682,11 +2704,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6363,
-                6495
+                6700,
+                6832
             ],
             "filename": "colection.js",
-            "lineno": 221,
+            "lineno": 224,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2709,11 +2731,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6384,
-                6423
+                6721,
+                6760
             ],
             "filename": "colection.js",
-            "lineno": 222,
+            "lineno": 225,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2736,11 +2758,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6437,
-                6482
+                6774,
+                6819
             ],
             "filename": "colection.js",
-            "lineno": 223,
+            "lineno": 226,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2763,11 +2785,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6507,
-                6534
+                6844,
+                6871
             ],
             "filename": "colection.js",
-            "lineno": 225,
+            "lineno": 228,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2790,11 +2812,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6546,
-                6871
+                6883,
+                7207
             ],
             "filename": "colection.js",
-            "lineno": 226,
+            "lineno": 229,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2802,7 +2824,7 @@
                 "name": "deployment_request",
                 "type": "ObjectExpression",
                 "value": "{\"network_id\":\"\",\"type\":\"CUSTOM\",\"token_id_assignment_strategy\":\"\",\"custom\":\"\"}",
-                "snippet": "deployment_request: {\n            network_id: networkId,\n            type: \"CUSTOM\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            custom: {\n              abi,\n              byte_code: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            },\n          }",
+                "snippet": "deployment_request: {\n            network_id: networkId,\n            type: \"CUSTOM\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            custom: {\n              abi,\n              bytecode: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            },\n          }",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
             }
         },
@@ -2817,11 +2839,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6580,
-                6601
+                6917,
+                6938
             ],
             "filename": "colection.js",
-            "lineno": 227,
+            "lineno": 230,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2844,11 +2866,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6615,
-                6629
+                6952,
+                6966
             ],
             "filename": "colection.js",
-            "lineno": 228,
+            "lineno": 231,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2871,11 +2893,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6643,
-                6698
+                6980,
+                7035
             ],
             "filename": "colection.js",
-            "lineno": 229,
+            "lineno": 232,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2898,19 +2920,19 @@
         "comment": "",
         "meta": {
             "range": [
-                6712,
-                6858
+                7049,
+                7194
             ],
             "filename": "colection.js",
-            "lineno": 230,
+            "lineno": 233,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
                 "id": "astnode100000266",
                 "name": "custom",
                 "type": "ObjectExpression",
-                "value": "{\"abi\":\"\",\"byte_code\":\"\",\"constructor_args\":\"\",\"salt\":\"\"}",
-                "snippet": "custom: {\n              abi,\n              byte_code: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            }",
+                "value": "{\"abi\":\"\",\"bytecode\":\"\",\"constructor_args\":\"\",\"salt\":\"\"}",
+                "snippet": "custom: {\n              abi,\n              bytecode: byteCode,\n              constructor_args: constructorArgs,\n              salt,\n            }",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
             }
         },
@@ -2925,11 +2947,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6736,
-                6739
+                7073,
+                7076
             ],
             "filename": "colection.js",
-            "lineno": 231,
+            "lineno": 234,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -2952,25 +2974,25 @@
         "comment": "",
         "meta": {
             "range": [
-                6755,
-                6774
+                7092,
+                7110
             ],
             "filename": "colection.js",
-            "lineno": 232,
+            "lineno": 235,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
                 "id": "astnode100000270",
-                "name": "byte_code",
+                "name": "bytecode",
                 "type": "Identifier",
                 "value": "byteCode",
-                "snippet": "byte_code: byteCode",
+                "snippet": "bytecode: byteCode",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
             }
         },
         "undocumented": true,
-        "name": "byte_code",
-        "longname": "module:phosphor/src/collection/colection~deployment_request.custom.byte_code",
+        "name": "bytecode",
+        "longname": "module:phosphor/src/collection/colection~deployment_request.custom.bytecode",
         "kind": "member",
         "memberof": "module:phosphor/src/collection/colection~deployment_request.custom",
         "scope": "static"
@@ -2979,11 +3001,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6790,
-                6823
+                7126,
+                7159
             ],
             "filename": "colection.js",
-            "lineno": 233,
+            "lineno": 236,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3006,11 +3028,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6839,
-                6843
+                7175,
+                7179
             ],
             "filename": "colection.js",
-            "lineno": 234,
+            "lineno": 237,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3033,11 +3055,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6883,
-                6902
+                7219,
+                7238
             ],
             "filename": "colection.js",
-            "lineno": 237,
+            "lineno": 240,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3060,11 +3082,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6914,
-                6947
+                7250,
+                7283
             ],
             "filename": "colection.js",
-            "lineno": 238,
+            "lineno": 241,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3087,11 +3109,11 @@
         "comment": "",
         "meta": {
             "range": [
-                6959,
-                6998
+                7295,
+                7334
             ],
             "filename": "colection.js",
-            "lineno": 239,
+            "lineno": 242,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3114,11 +3136,11 @@
         "comment": "",
         "meta": {
             "range": [
-                7010,
-                7045
+                7346,
+                7381
             ],
             "filename": "colection.js",
-            "lineno": 240,
+            "lineno": 243,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3141,11 +3163,11 @@
         "comment": "",
         "meta": {
             "range": [
-                7057,
-                7076
+                7393,
+                7412
             ],
             "filename": "colection.js",
-            "lineno": 241,
+            "lineno": 244,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3168,11 +3190,11 @@
         "comment": "",
         "meta": {
             "range": [
-                7088,
-                7119
+                7424,
+                7455
             ],
             "filename": "colection.js",
-            "lineno": 242,
+            "lineno": 245,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3192,14 +3214,223 @@
         "memberof": "module:phosphor/src/collection/colection"
     },
     {
-        "comment": "/**\n * @title Create Collection with external contract\n *\n * @description Links the collection to an existing smart contract on a network supported by Phosphor\n *\n */",
+        "comment": "/**\n * @typedef {Object} ExternalContractDeploymentRequest\n * @property {number} networkId\n * @property {string} address\n * @property {string} byteCode\n * @property {Record<string, object | any[] | number | string | boolean | null>}  tokenFilter\n * @property {string} [salt]\n * @property {\"ERC721\" | \"ERC1155\"} tokenType\n * @property {\"AUTOMATIC\" | \"MANUAL\" | \"EXTERNAL\" | null} [tokenIDAssignmentStrategy]\n */",
+        "meta": {
+            "filename": "colection.js",
+            "lineno": 257,
+            "columnno": 0,
+            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
+            "code": {}
+        },
+        "kind": "typedef",
+        "name": "ExternalContractDeploymentRequest",
+        "type": {
+            "names": [
+                "Object"
+            ]
+        },
+        "properties": [
+            {
+                "type": {
+                    "names": [
+                        "number"
+                    ]
+                },
+                "name": "networkId"
+            },
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "name": "address"
+            },
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "name": "byteCode"
+            },
+            {
+                "type": {
+                    "names": [
+                        "Record.<string, (object|Array.<any>|number|string|boolean|null)>"
+                    ]
+                },
+                "name": "tokenFilter"
+            },
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "optional": true,
+                "name": "salt"
+            },
+            {
+                "type": {
+                    "names": [
+                        "\"ERC721\"",
+                        "\"ERC1155\""
+                    ]
+                },
+                "name": "tokenType"
+            },
+            {
+                "type": {
+                    "names": [
+                        "\"AUTOMATIC\"",
+                        "\"MANUAL\"",
+                        "\"EXTERNAL\"",
+                        "null"
+                    ]
+                },
+                "optional": true,
+                "name": "tokenIDAssignmentStrategy"
+            }
+        ],
+        "longname": "module:phosphor/src/collection/colection~ExternalContractDeploymentRequest",
+        "scope": "inner",
+        "memberof": "module:phosphor/src/collection/colection"
+    },
+    {
+        "comment": "/**\n * @typedef {Object} CreateCollectionWithExternalContractInput\n * @property {string} name\n * @property {string} [description]\n * @property {ExternalContractDeploymentRequest} deploymentRequest\n * @property {string} [defaultItemTypeId]\n * @property {boolean} [editableMetadata]\n * @property {string} [externalLink]\n * @property {string} [imageUrl]\n * @property {boolean} [isPublic]\n * @property {CollectionMedia} [media]\n * @property {Object | any[] | number | string | boolean | null} [previewMetadata]\n * @property {\"INSTANT\" | \"DELAYED\"} [revealStrategy]\n */",
+        "meta": {
+            "filename": "colection.js",
+            "lineno": 269,
+            "columnno": 0,
+            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
+            "code": {}
+        },
+        "kind": "typedef",
+        "name": "CreateCollectionWithExternalContractInput",
+        "type": {
+            "names": [
+                "Object"
+            ]
+        },
+        "properties": [
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "name": "name"
+            },
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "optional": true,
+                "name": "description"
+            },
+            {
+                "type": {
+                    "names": [
+                        "ExternalContractDeploymentRequest"
+                    ]
+                },
+                "name": "deploymentRequest"
+            },
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "optional": true,
+                "name": "defaultItemTypeId"
+            },
+            {
+                "type": {
+                    "names": [
+                        "boolean"
+                    ]
+                },
+                "optional": true,
+                "name": "editableMetadata"
+            },
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "optional": true,
+                "name": "externalLink"
+            },
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "optional": true,
+                "name": "imageUrl"
+            },
+            {
+                "type": {
+                    "names": [
+                        "boolean"
+                    ]
+                },
+                "optional": true,
+                "name": "isPublic"
+            },
+            {
+                "type": {
+                    "names": [
+                        "CollectionMedia"
+                    ]
+                },
+                "optional": true,
+                "name": "media"
+            },
+            {
+                "type": {
+                    "names": [
+                        "Object",
+                        "Array.<any>",
+                        "number",
+                        "string",
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "optional": true,
+                "name": "previewMetadata"
+            },
+            {
+                "type": {
+                    "names": [
+                        "\"INSTANT\"",
+                        "\"DELAYED\""
+                    ]
+                },
+                "optional": true,
+                "name": "revealStrategy"
+            }
+        ],
+        "longname": "module:phosphor/src/collection/colection~CreateCollectionWithExternalContractInput",
+        "scope": "inner",
+        "memberof": "module:phosphor/src/collection/colection"
+    },
+    {
+        "comment": "/**\n * @title Create a new collection with a custom contract (BYOC)\n *\n * @description Use your own smart contract to create a new collection (with restrictions)\n *\n * @param {CreateCollectionWithExternalContractInput} data - The data to create the collection with.\n * @returns {Promise} - A promise that resolves when the collection is created.\n * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions\n * @api https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post\n */",
         "meta": {
             "range": [
-                8109,
-                9856
+                9073,
+                10815
             ],
             "filename": "colection.js",
-            "lineno": 282,
+            "lineno": 294,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3209,7 +3440,7 @@
                 "paramnames": [
                     "data"
                 ],
-                "snippet": "async function createCollectionWithExternalContract(data) {\n  const {\n    name,\n    description,\n    deploymentRequest,\n\n    defaultItemTypeId,\n    editableMetadata,\n    externalLink,\n    imageUrl,\n    isPublic,\n    media,\n    previewMetadata,\n    revealStrategy,\n    tokenIDAssignmentStrategy,\n  } = data;\n\n  const { networkId, address, tokenFilter, tokenType, salt } =\n    deploymentRequest;\n\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n\n    // Add the Phosphor API key to the headers like this\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    const response = await fetch(\n      \"https://admin-api.consensys-nft.com/v1/collections\",\n      {\n        method: \"POST\",\n        headers,\n        body: JSON.stringify({\n          name,\n          description,\n          media: {\n            header_image_url: media?.headerImageUrl,\n            thumbnail_image_url: media?.thumbnailImageUrl,\n          },\n          external_link: externalLink,\n          deployment_request: {\n            network_id: networkId,\n            type: \"EXTERNAL\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            external: {\n              address,\n              token_filter: tokenFilter,\n              token_type: tokenType,\n              salt,\n            },\n          },\n          is_public: isPublic,\n          preview_metadata: previewMetadata,\n          default_item_type_id: defaultItemTypeId,\n          editable_metadata: editableMetadata,\n          image_url: imageUrl,\n          reveal_strategy: revealStrategy,\n        }),\n      }\n    );\n\n    console.log(\"create collection\", response);\n    if (response.ok) {\n    }\n  } catch (error) {\n    console.log(error);\n  }\n}",
+                "snippet": "async function createCollectionWithExternalContract(data) {\n  const {\n    name,\n    description,\n    deploymentRequest,\n\n    defaultItemTypeId,\n    editableMetadata,\n    externalLink,\n    imageUrl,\n    isPublic,\n    media,\n    previewMetadata,\n    revealStrategy,\n  } = data;\n\n  const { networkId, address, tokenFilter, tokenType, salt, tokenIDAssignmentStrategy} =\n    deploymentRequest;\n\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n\n    // Add the Phosphor API key to the headers like this\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    const response = await fetch(\n      \"https://admin-api.consensys-nft.com/v1/collections\",\n      {\n        method: \"POST\",\n        headers,\n        body: JSON.stringify({\n          name,\n          description,\n          media: {\n            header_image_url: media?.headerImageUrl,\n            thumbnail_image_url: media?.thumbnailImageUrl,\n          },\n          external_link: externalLink,\n          deployment_request: {\n            network_id: networkId,\n            type: \"EXTERNAL\",\n            token_id_assignment_strategy: tokenIDAssignmentStrategy,\n            external: {\n              address,\n              token_filter: tokenFilter,\n              token_type: tokenType,\n              salt,\n            },\n          },\n          is_public: isPublic,\n          preview_metadata: previewMetadata,\n          default_item_type_id: defaultItemTypeId,\n          editable_metadata: editableMetadata,\n          image_url: imageUrl,\n          reveal_strategy: revealStrategy,\n        }),\n      }\n    );\n\n    console.log(\"create collection\", response);\n    if (response.ok) {\n    }\n  } catch (error) {\n    console.log(error);\n  }\n}",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
             },
             "vars": {
@@ -3222,28 +3453,60 @@
             {
                 "originalTitle": "title",
                 "title": "title",
-                "text": "Create Collection with external contract",
-                "value": "Create Collection with external contract"
+                "text": "Create a new collection with a custom contract (BYOC)",
+                "value": "Create a new collection with a custom contract (BYOC)"
+            },
+            {
+                "originalTitle": "docs",
+                "title": "docs",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions"
+            },
+            {
+                "originalTitle": "api",
+                "title": "api",
+                "text": "https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post",
+                "value": "https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post"
             }
         ],
-        "description": "<p>Links the collection to an existing smart contract on a network supported by Phosphor</p>",
+        "description": "<p>Use your own smart contract to create a new collection (with restrictions)</p>",
+        "params": [
+            {
+                "type": {
+                    "names": [
+                        "CreateCollectionWithExternalContractInput"
+                    ]
+                },
+                "description": "<p>The data to create the collection with.</p>",
+                "name": "data"
+            }
+        ],
+        "returns": [
+            {
+                "type": {
+                    "names": [
+                        "Promise"
+                    ]
+                },
+                "description": "<ul>\n<li>A promise that resolves when the collection is created.</li>\n</ul>"
+            }
+        ],
         "name": "createCollectionWithExternalContract",
         "longname": "module:phosphor/src/collection/colection~createCollectionWithExternalContract",
         "kind": "function",
         "scope": "inner",
         "memberof": "module:phosphor/src/collection/colection",
-        "params": [],
         "async": true
     },
     {
         "comment": "",
         "meta": {
             "range": [
-                8183,
-                8187
+                9147,
+                9151
             ],
             "filename": "colection.js",
-            "lineno": 284,
+            "lineno": 296,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3266,11 +3529,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8193,
-                8204
+                9157,
+                9168
             ],
             "filename": "colection.js",
-            "lineno": 285,
+            "lineno": 297,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3293,11 +3556,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8210,
-                8227
+                9174,
+                9191
             ],
             "filename": "colection.js",
-            "lineno": 286,
+            "lineno": 298,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3320,11 +3583,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8234,
-                8251
+                9198,
+                9215
             ],
             "filename": "colection.js",
-            "lineno": 288,
+            "lineno": 300,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3347,11 +3610,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8257,
-                8273
+                9221,
+                9237
             ],
             "filename": "colection.js",
-            "lineno": 289,
+            "lineno": 301,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3374,11 +3637,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8279,
-                8291
+                9243,
+                9255
             ],
             "filename": "colection.js",
-            "lineno": 290,
+            "lineno": 302,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3401,11 +3664,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8297,
-                8305
+                9261,
+                9269
             ],
             "filename": "colection.js",
-            "lineno": 291,
+            "lineno": 303,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3428,11 +3691,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8311,
-                8319
+                9275,
+                9283
             ],
             "filename": "colection.js",
-            "lineno": 292,
+            "lineno": 304,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3455,11 +3718,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8325,
-                8330
+                9289,
+                9294
             ],
             "filename": "colection.js",
-            "lineno": 293,
+            "lineno": 305,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3482,11 +3745,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8336,
-                8351
+                9300,
+                9315
             ],
             "filename": "colection.js",
-            "lineno": 294,
+            "lineno": 306,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3509,11 +3772,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8357,
-                8371
+                9321,
+                9335
             ],
             "filename": "colection.js",
-            "lineno": 295,
+            "lineno": 307,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3536,42 +3799,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8377,
-                8402
+                9360,
+                9369
             ],
             "filename": "colection.js",
-            "lineno": 296,
-            "columnno": 4,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
-            "code": {
-                "id": "astnode100000324",
-                "name": "tokenIDAssignmentStrategy",
-                "type": "Identifier",
-                "value": "tokenIDAssignmentStrategy",
-                "snippet": "tokenIDAssignmentStrategy",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
-            }
-        },
-        "undocumented": true,
-        "name": "tokenIDAssignmentStrategy",
-        "longname": "module:phosphor/src/collection/colection~tokenIDAssignmentStrategy",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/collection/colection"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                8427,
-                8436
-            ],
-            "filename": "colection.js",
-            "lineno": 299,
+            "lineno": 310,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
-                "id": "astnode100000330",
+                "id": "astnode100000328",
                 "name": "networkId",
                 "type": "Identifier",
                 "value": "networkId",
@@ -3590,15 +3826,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8438,
-                8445
+                9371,
+                9378
             ],
             "filename": "colection.js",
-            "lineno": 299,
+            "lineno": 310,
             "columnno": 21,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
-                "id": "astnode100000332",
+                "id": "astnode100000330",
                 "name": "address",
                 "type": "Identifier",
                 "value": "address",
@@ -3617,15 +3853,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8447,
-                8458
+                9380,
+                9391
             ],
             "filename": "colection.js",
-            "lineno": 299,
+            "lineno": 310,
             "columnno": 30,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
-                "id": "astnode100000334",
+                "id": "astnode100000332",
                 "name": "tokenFilter",
                 "type": "Identifier",
                 "value": "tokenFilter",
@@ -3644,15 +3880,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8460,
-                8469
+                9393,
+                9402
             ],
             "filename": "colection.js",
-            "lineno": 299,
+            "lineno": 310,
             "columnno": 43,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
-                "id": "astnode100000336",
+                "id": "astnode100000334",
                 "name": "tokenType",
                 "type": "Identifier",
                 "value": "tokenType",
@@ -3671,15 +3907,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8471,
-                8475
+                9404,
+                9408
             ],
             "filename": "colection.js",
-            "lineno": 299,
+            "lineno": 310,
             "columnno": 54,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
-                "id": "astnode100000338",
+                "id": "astnode100000336",
                 "name": "salt",
                 "type": "Identifier",
                 "value": "salt",
@@ -3698,11 +3934,38 @@
         "comment": "",
         "meta": {
             "range": [
-                8522,
-                8545
+                9410,
+                9435
             ],
             "filename": "colection.js",
-            "lineno": 303,
+            "lineno": 310,
+            "columnno": 60,
+            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
+            "code": {
+                "id": "astnode100000338",
+                "name": "tokenIDAssignmentStrategy",
+                "type": "Identifier",
+                "value": "tokenIDAssignmentStrategy",
+                "snippet": "tokenIDAssignmentStrategy",
+                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection/colection.js"
+            }
+        },
+        "undocumented": true,
+        "name": "tokenIDAssignmentStrategy",
+        "longname": "module:phosphor/src/collection/colection~tokenIDAssignmentStrategy",
+        "kind": "member",
+        "scope": "inner",
+        "memberof": "module:phosphor/src/collection/colection"
+    },
+    {
+        "comment": "",
+        "meta": {
+            "range": [
+                9481,
+                9504
+            ],
+            "filename": "colection.js",
+            "lineno": 314,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3726,11 +3989,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8729,
-                9727
+                9688,
+                10686
             ],
             "filename": "colection.js",
-            "lineno": 310,
+            "lineno": 321,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3754,11 +4017,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8829,
-                8843
+                9788,
+                9802
             ],
             "filename": "colection.js",
-            "lineno": 313,
+            "lineno": 324,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3781,11 +4044,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8853,
-                8860
+                9812,
+                9819
             ],
             "filename": "colection.js",
-            "lineno": 314,
+            "lineno": 325,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3808,11 +4071,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8870,
-                9712
+                9829,
+                10671
             ],
             "filename": "colection.js",
-            "lineno": 315,
+            "lineno": 326,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3835,11 +4098,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8903,
-                8907
+                9862,
+                9866
             ],
             "filename": "colection.js",
-            "lineno": 316,
+            "lineno": 327,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3862,11 +4125,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8919,
-                8930
+                9878,
+                9889
             ],
             "filename": "colection.js",
-            "lineno": 317,
+            "lineno": 328,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3889,11 +4152,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8942,
-                9074
+                9901,
+                10033
             ],
             "filename": "colection.js",
-            "lineno": 318,
+            "lineno": 329,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3916,11 +4179,11 @@
         "comment": "",
         "meta": {
             "range": [
-                8963,
-                9002
+                9922,
+                9961
             ],
             "filename": "colection.js",
-            "lineno": 319,
+            "lineno": 330,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3943,11 +4206,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9016,
-                9061
+                9975,
+                10020
             ],
             "filename": "colection.js",
-            "lineno": 320,
+            "lineno": 331,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3970,11 +4233,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9086,
-                9113
+                10045,
+                10072
             ],
             "filename": "colection.js",
-            "lineno": 322,
+            "lineno": 333,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -3997,11 +4260,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9125,
-                9452
+                10084,
+                10411
             ],
             "filename": "colection.js",
-            "lineno": 323,
+            "lineno": 334,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4024,11 +4287,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9159,
-                9180
+                10118,
+                10139
             ],
             "filename": "colection.js",
-            "lineno": 324,
+            "lineno": 335,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4051,11 +4314,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9194,
-                9210
+                10153,
+                10169
             ],
             "filename": "colection.js",
-            "lineno": 325,
+            "lineno": 336,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4078,11 +4341,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9224,
-                9279
+                10183,
+                10238
             ],
             "filename": "colection.js",
-            "lineno": 326,
+            "lineno": 337,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4105,11 +4368,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9293,
-                9439
+                10252,
+                10398
             ],
             "filename": "colection.js",
-            "lineno": 327,
+            "lineno": 338,
             "columnno": 12,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4132,11 +4395,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9319,
-                9326
+                10278,
+                10285
             ],
             "filename": "colection.js",
-            "lineno": 328,
+            "lineno": 339,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4159,11 +4422,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9342,
-                9367
+                10301,
+                10326
             ],
             "filename": "colection.js",
-            "lineno": 329,
+            "lineno": 340,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4186,11 +4449,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9383,
-                9404
+                10342,
+                10363
             ],
             "filename": "colection.js",
-            "lineno": 330,
+            "lineno": 341,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4213,11 +4476,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9420,
-                9424
+                10379,
+                10383
             ],
             "filename": "colection.js",
-            "lineno": 331,
+            "lineno": 342,
             "columnno": 14,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4240,11 +4503,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9464,
-                9483
+                10423,
+                10442
             ],
             "filename": "colection.js",
-            "lineno": 334,
+            "lineno": 345,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4267,11 +4530,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9495,
-                9528
+                10454,
+                10487
             ],
             "filename": "colection.js",
-            "lineno": 335,
+            "lineno": 346,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4294,11 +4557,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9540,
-                9579
+                10499,
+                10538
             ],
             "filename": "colection.js",
-            "lineno": 336,
+            "lineno": 347,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4321,11 +4584,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9591,
-                9626
+                10550,
+                10585
             ],
             "filename": "colection.js",
-            "lineno": 337,
+            "lineno": 348,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4348,11 +4611,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9638,
-                9657
+                10597,
+                10616
             ],
             "filename": "colection.js",
-            "lineno": 338,
+            "lineno": 349,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4375,11 +4638,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9669,
-                9700
+                10628,
+                10659
             ],
             "filename": "colection.js",
-            "lineno": 339,
+            "lineno": 350,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4402,11 +4665,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9869,
-                9885
+                10828,
+                10844
             ],
             "filename": "colection.js",
-            "lineno": 353,
+            "lineno": 364,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4428,11 +4691,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9889,
-                9920
+                10848,
+                10879
             ],
             "filename": "colection.js",
-            "lineno": 354,
+            "lineno": 365,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4454,11 +4717,11 @@
         "comment": "",
         "meta": {
             "range": [
-                9924,
-                9960
+                10883,
+                10919
             ],
             "filename": "colection.js",
-            "lineno": 355,
+            "lineno": 366,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/collection",
             "code": {
@@ -4770,14 +5033,14 @@
         "memberof": "module:phosphor/src/item/item"
     },
     {
-        "comment": "/**\n * @title Create a Item\n *\n * @description Initiates the creation of a new item based on provided data.\n *\n * @param {CreateItemInput} data - The data to create the item.\n * @returns {Promise} A promise that resolves to the created item.\n */",
+        "comment": "/**\n * @title Create a Item\n *\n * @description Initiates the creation of a new item based on provided data.\n *\n * @param {CreateItemInput} data - The data to create the item.\n * @returns {Promise} A promise that resolves to the created item.\n * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections/create-a-collection\n * @api  https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/create-an-item\n */",
         "meta": {
             "range": [
-                1268,
-                1969
+                1483,
+                2184
             ],
             "filename": "item.js",
-            "lineno": 37,
+            "lineno": 39,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -4801,6 +5064,18 @@
                 "title": "title",
                 "text": "Create a Item",
                 "value": "Create a Item"
+            },
+            {
+                "originalTitle": "docs",
+                "title": "docs",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections/create-a-collection",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections/create-a-collection"
+            },
+            {
+                "originalTitle": "api",
+                "title": "api",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/create-an-item",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/create-an-item"
             }
         ],
         "description": "<p>Initiates the creation of a new item based on provided data.</p>",
@@ -4836,11 +5111,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1312,
-                1324
+                1527,
+                1539
             ],
             "filename": "item.js",
-            "lineno": 38,
+            "lineno": 40,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -4863,11 +5138,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1326,
-                1336
+                1541,
+                1551
             ],
             "filename": "item.js",
-            "lineno": 38,
+            "lineno": 40,
             "columnno": 24,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -4890,11 +5165,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1338,
-                1348
+                1553,
+                1563
             ],
             "filename": "item.js",
-            "lineno": 38,
+            "lineno": 40,
             "columnno": 36,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -4917,11 +5192,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1378,
-                1401
+                1593,
+                1616
             ],
             "filename": "item.js",
-            "lineno": 41,
+            "lineno": 43,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -4945,11 +5220,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1572,
-                1586
+                1787,
+                1801
             ],
             "filename": "item.js",
-            "lineno": 47,
+            "lineno": 49,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -4972,11 +5247,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1594,
-                1601
+                1809,
+                1816
             ],
             "filename": "item.js",
-            "lineno": 48,
+            "lineno": 50,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -4999,11 +5274,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1609,
-                1910
+                1824,
+                2125
             ],
             "filename": "item.js",
-            "lineno": 49,
+            "lineno": 51,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -5026,11 +5301,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1640,
-                1667
+                1855,
+                1882
             ],
             "filename": "item.js",
-            "lineno": 50,
+            "lineno": 52,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -5053,11 +5328,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1677,
-                1866
+                1892,
+                2081
             ],
             "filename": "item.js",
-            "lineno": 51,
+            "lineno": 53,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -5080,11 +5355,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1701,
-                1724
+                1916,
+                1939
             ],
             "filename": "item.js",
-            "lineno": 52,
+            "lineno": 54,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -5107,11 +5382,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1736,
-                1771
+                1951,
+                1986
             ],
             "filename": "item.js",
-            "lineno": 53,
+            "lineno": 55,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -5134,11 +5409,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1783,
-                1814
+                1998,
+                2029
             ],
             "filename": "item.js",
-            "lineno": 54,
+            "lineno": 56,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -5161,11 +5436,11 @@
         "comment": "",
         "meta": {
             "range": [
-                1876,
-                1900
+                2091,
+                2115
             ],
             "filename": "item.js",
-            "lineno": 57,
+            "lineno": 59,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
@@ -5188,7 +5463,7 @@
         "comment": "/**\n * @typedef {Object} ItemRoyaltyInfo\n * @property {number} amount_bps - The amount in basis points.\n * @property {string} receiver - The receiver of the royalty.\n */",
         "meta": {
             "filename": "item.js",
-            "lineno": 65,
+            "lineno": 67,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {}
@@ -5228,7 +5503,7 @@
         "comment": "/**\n * @typedef {Object} EditableItem\n * @property {string} itemId - The ID of the item.\n * @property {Attributes} [attributes] - The attributes of the item.\n * @property {string} [itemTypeId] - The ID of the item type.\n * @property {ItemRoyaltyInfo} [royaltyInfo] - The royalty information of the item.\n */",
         "meta": {
             "filename": "item.js",
-            "lineno": 71,
+            "lineno": 73,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {}
@@ -5286,351 +5561,10 @@
         "memberof": "module:phosphor/src/item/item"
     },
     {
-        "comment": "/**\n * @title Edit Item\n *\n * @description All attributes specified will overwrite ALL existing attributes and item-type specific attributes must be valid against the item type schema. (if any) Attributes cannot be updated once an item has been minted, unless the collection has editable_metadata=True.\n */",
-        "meta": {
-            "range": [
-                4100,
-                4642
-            ],
-            "filename": "item.js",
-            "lineno": 126,
-            "columnno": 0,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000569",
-                "name": "editItem",
-                "type": "FunctionDeclaration",
-                "paramnames": [
-                    "data"
-                ],
-                "snippet": "async function editItem(data) {\n  const { itemId, attributes, itemTypeId, royaltyInfo } = data;\n\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return await fetch(`${phosphorApiUrl}/v1/items/${itemId}`, {\n      method: \"PATCH\",\n      headers,\n      body: JSON.stringify({\n        attributes,\n        item_type_id: itemTypeId,\n        royalty_info: royaltyInfo,\n      }),\n    });\n  } catch (error) {\n    console.log(error);\n  }\n}",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            },
-            "vars": {
-                "undefined": null,
-                "headers": "module:phosphor/src/item/item~editItem~headers"
-            }
-        },
-        "tags": [
-            {
-                "originalTitle": "title",
-                "title": "title",
-                "text": "Edit Item",
-                "value": "Edit Item"
-            }
-        ],
-        "description": "<p>All attributes specified will overwrite ALL existing attributes and item-type specific attributes must be valid against the item type schema. (if any) Attributes cannot be updated once an item has been minted, unless the collection has editable_metadata=True.</p>",
-        "name": "editItem",
-        "longname": "module:phosphor/src/item/item~editItem",
-        "kind": "function",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item",
-        "params": [],
-        "async": true
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4142,
-                4148
-            ],
-            "filename": "item.js",
-            "lineno": 127,
-            "columnno": 10,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000576",
-                "name": "itemId",
-                "type": "Identifier",
-                "value": "itemId",
-                "snippet": "itemId",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "itemId",
-        "longname": "module:phosphor/src/item/item~itemId",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4150,
-                4160
-            ],
-            "filename": "item.js",
-            "lineno": 127,
-            "columnno": 18,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000578",
-                "name": "attributes",
-                "type": "Identifier",
-                "value": "attributes",
-                "snippet": "attributes",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "attributes",
-        "longname": "module:phosphor/src/item/item~attributes",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4162,
-                4172
-            ],
-            "filename": "item.js",
-            "lineno": 127,
-            "columnno": 30,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000580",
-                "name": "itemTypeId",
-                "type": "Identifier",
-                "value": "itemTypeId",
-                "snippet": "itemTypeId",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "itemTypeId",
-        "longname": "module:phosphor/src/item/item~itemTypeId",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4174,
-                4185
-            ],
-            "filename": "item.js",
-            "lineno": 127,
-            "columnno": 42,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000582",
-                "name": "royaltyInfo",
-                "type": "Identifier",
-                "value": "royaltyInfo",
-                "snippet": "royaltyInfo",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "royaltyInfo",
-        "longname": "module:phosphor/src/item/item~royaltyInfo",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4215,
-                4238
-            ],
-            "filename": "item.js",
-            "lineno": 130,
-            "columnno": 10,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000588",
-                "name": "headers",
-                "type": "NewExpression",
-                "value": "",
-                "snippet": "headers = new Headers()",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "headers",
-        "longname": "module:phosphor/src/item/item~editItem~headers",
-        "kind": "constant",
-        "memberof": "module:phosphor/src/item/item~editItem",
-        "scope": "inner",
-        "params": []
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4425,
-                4440
-            ],
-            "filename": "item.js",
-            "lineno": 136,
-            "columnno": 6,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000617",
-                "name": "method",
-                "type": "Literal",
-                "value": "PATCH",
-                "snippet": "method: \"PATCH\"",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "method",
-        "longname": "module:phosphor/src/item/item~method",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4448,
-                4455
-            ],
-            "filename": "item.js",
-            "lineno": 137,
-            "columnno": 6,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000619",
-                "name": "headers",
-                "type": "Identifier",
-                "value": "headers",
-                "snippet": "headers",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "headers",
-        "longname": "module:phosphor/src/item/item~headers",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4463,
-                4583
-            ],
-            "filename": "item.js",
-            "lineno": 138,
-            "columnno": 6,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000621",
-                "name": "body",
-                "type": "CallExpression",
-                "value": "",
-                "snippet": "body: JSON.stringify({\n        attributes,\n        item_type_id: itemTypeId,\n        royalty_info: royaltyInfo,\n      })",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "body",
-        "longname": "module:phosphor/src/item/item~body",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4494,
-                4504
-            ],
-            "filename": "item.js",
-            "lineno": 139,
-            "columnno": 8,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000627",
-                "name": "attributes",
-                "type": "Identifier",
-                "value": "attributes",
-                "snippet": "attributes",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "attributes",
-        "longname": "module:phosphor/src/item/item~attributes",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4514,
-                4538
-            ],
-            "filename": "item.js",
-            "lineno": 140,
-            "columnno": 8,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000629",
-                "name": "item_type_id",
-                "type": "Identifier",
-                "value": "itemTypeId",
-                "snippet": "item_type_id: itemTypeId",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "item_type_id",
-        "longname": "module:phosphor/src/item/item~item_type_id",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                4548,
-                4573
-            ],
-            "filename": "item.js",
-            "lineno": 141,
-            "columnno": 8,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000631",
-                "name": "royalty_info",
-                "type": "Identifier",
-                "value": "royaltyInfo",
-                "snippet": "royalty_info: royaltyInfo",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "royalty_info",
-        "longname": "module:phosphor/src/item/item~royalty_info",
-        "kind": "member",
-        "scope": "inner",
-        "memberof": "module:phosphor/src/item/item"
-    },
-    {
         "comment": "/**\n * @typedef {Object} LockItemsInput\n * @property {string} [itemId] - The ID of a single item to lock.\n * @property {string[]} [itemIds] - The IDs of multiple items to lock.\n * @property {string} [collectionId] - The ID of a collection. All remaining unlocked items in this collection will be locked.\n * @property {string} [maxSupply] - The maximum supply for the item. For ERC721's, it should always be 1. For ERC1155's, it should be greater than 0.\n * @property {string} [tokenId] - The token ID. This can only be done for a single item and if the token assignment strategy of the collection is set to MANUAL.\n */",
         "meta": {
             "filename": "item.js",
-            "lineno": 149,
+            "lineno": 151,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {}
@@ -5699,24 +5633,24 @@
         "memberof": "module:phosphor/src/item/item"
     },
     {
-        "comment": "/**\n * @title Lock Items\n *\n * @description Locks items based on their IDs or a collection ID.\n * @param {LockItemsInput} data - The data to lock the items.\n */",
+        "comment": "/**\n * @title Lock Items\n *\n * @description Locks items based on their IDs or a collection ID.\n * @param {LockItemsInput} data - The data to lock the items.\n * \n * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/locking\n * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1bulk/post\n */",
         "meta": {
             "range": [
-                5425,
-                6026
+                5843,
+                6438
             ],
             "filename": "item.js",
-            "lineno": 164,
+            "lineno": 169,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000640",
+                "id": "astnode100000569",
                 "name": "lockItems",
                 "type": "FunctionDeclaration",
                 "paramnames": [
                     "data"
                 ],
-                "snippet": "async function lockItems(data) {\n  const { itemId, itemIds, collectionId, maxSupply, tokenId } = data;\n\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return await fetch(`${phosphorApiUrl}/v1/items/lock`, {\n      method: \"POST\",\n      headers,\n      body: JSON.stringify({\n        item_id: itemId,\n        item_ids: itemIds,\n        collection_id: collectionId,\n        max_supply: maxSupply,\n        token_id: tokenId,\n      }),\n    });\n  } catch (error) {\n    console.log(error);\n  }\n}",
+                "snippet": "async function lockItems(data) {\n  const { itemId, itemIds, collectionId, maxSupply, tokenId } = data;\n\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return fetch(`${phosphorApiUrl}/v1/items/lock`, {\n      method: \"POST\",\n      headers,\n      body: JSON.stringify({\n        item_id: itemId,\n        item_ids: itemIds,\n        collection_id: collectionId,\n        max_supply: maxSupply,\n        token_id: tokenId,\n      }),\n    });\n  } catch (error) {\n    console.log(error);\n  }\n}",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
             },
             "vars": {
@@ -5730,6 +5664,18 @@
                 "title": "title",
                 "text": "Lock Items",
                 "value": "Lock Items"
+            },
+            {
+                "originalTitle": "docs",
+                "title": "docs",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/locking",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/locking"
+            },
+            {
+                "originalTitle": "api",
+                "title": "api",
+                "text": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1bulk/post",
+                "value": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1bulk/post"
             }
         ],
         "description": "<p>Locks items based on their IDs or a collection ID.</p>",
@@ -5755,15 +5701,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5468,
-                5474
+                5886,
+                5892
             ],
             "filename": "item.js",
-            "lineno": 165,
+            "lineno": 170,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000647",
+                "id": "astnode100000576",
                 "name": "itemId",
                 "type": "Identifier",
                 "value": "itemId",
@@ -5782,15 +5728,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5476,
-                5483
+                5894,
+                5901
             ],
             "filename": "item.js",
-            "lineno": 165,
+            "lineno": 170,
             "columnno": 18,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000649",
+                "id": "astnode100000578",
                 "name": "itemIds",
                 "type": "Identifier",
                 "value": "itemIds",
@@ -5809,15 +5755,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5485,
-                5497
+                5903,
+                5915
             ],
             "filename": "item.js",
-            "lineno": 165,
+            "lineno": 170,
             "columnno": 27,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000651",
+                "id": "astnode100000580",
                 "name": "collectionId",
                 "type": "Identifier",
                 "value": "collectionId",
@@ -5836,15 +5782,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5499,
-                5508
+                5917,
+                5926
             ],
             "filename": "item.js",
-            "lineno": 165,
+            "lineno": 170,
             "columnno": 41,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000653",
+                "id": "astnode100000582",
                 "name": "maxSupply",
                 "type": "Identifier",
                 "value": "maxSupply",
@@ -5863,15 +5809,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5510,
-                5517
+                5928,
+                5935
             ],
             "filename": "item.js",
-            "lineno": 165,
+            "lineno": 170,
             "columnno": 52,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000655",
+                "id": "astnode100000584",
                 "name": "tokenId",
                 "type": "Identifier",
                 "value": "tokenId",
@@ -5890,15 +5836,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5547,
-                5570
+                5965,
+                5988
             ],
             "filename": "item.js",
-            "lineno": 168,
+            "lineno": 173,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000661",
+                "id": "astnode100000590",
                 "name": "headers",
                 "type": "NewExpression",
                 "value": "",
@@ -5918,15 +5864,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5752,
-                5766
+                6164,
+                6178
             ],
             "filename": "item.js",
-            "lineno": 174,
+            "lineno": 179,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000688",
+                "id": "astnode100000616",
                 "name": "method",
                 "type": "Literal",
                 "value": "POST",
@@ -5945,15 +5891,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5774,
-                5781
+                6186,
+                6193
             ],
             "filename": "item.js",
-            "lineno": 175,
+            "lineno": 180,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000690",
+                "id": "astnode100000618",
                 "name": "headers",
                 "type": "Identifier",
                 "value": "headers",
@@ -5972,15 +5918,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5789,
-                5967
+                6201,
+                6379
             ],
             "filename": "item.js",
-            "lineno": 176,
+            "lineno": 181,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000692",
+                "id": "astnode100000620",
                 "name": "body",
                 "type": "CallExpression",
                 "value": "",
@@ -5999,15 +5945,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5820,
-                5835
+                6232,
+                6247
             ],
             "filename": "item.js",
-            "lineno": 177,
+            "lineno": 182,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000698",
+                "id": "astnode100000626",
                 "name": "item_id",
                 "type": "Identifier",
                 "value": "itemId",
@@ -6026,15 +5972,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5845,
-                5862
+                6257,
+                6274
             ],
             "filename": "item.js",
-            "lineno": 178,
+            "lineno": 183,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000700",
+                "id": "astnode100000628",
                 "name": "item_ids",
                 "type": "Identifier",
                 "value": "itemIds",
@@ -6053,15 +5999,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5872,
-                5899
+                6284,
+                6311
             ],
             "filename": "item.js",
-            "lineno": 179,
+            "lineno": 184,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000702",
+                "id": "astnode100000630",
                 "name": "collection_id",
                 "type": "Identifier",
                 "value": "collectionId",
@@ -6080,15 +6026,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5909,
-                5930
+                6321,
+                6342
             ],
             "filename": "item.js",
-            "lineno": 180,
+            "lineno": 185,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000704",
+                "id": "astnode100000632",
                 "name": "max_supply",
                 "type": "Identifier",
                 "value": "maxSupply",
@@ -6107,15 +6053,15 @@
         "comment": "",
         "meta": {
             "range": [
-                5940,
-                5957
+                6352,
+                6369
             ],
             "filename": "item.js",
-            "lineno": 181,
+            "lineno": 186,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000706",
+                "id": "astnode100000634",
                 "name": "token_id",
                 "type": "Identifier",
                 "value": "tokenId",
@@ -6134,7 +6080,7 @@
         "comment": "/**\n * @typedef {Object} MintItemsInput\n * @property {string} [itemId] - The ID of a single item to mint.\n * @property {string[]} [itemIds] - The IDs of multiple items to mint.\n * @property {string} [collectionId] - The ID of a collection. All locked and un-minted items in this collection will be minted.\n * @property {string[]} [tokenIds] - The token IDs of the items to mint.\n * @property {Object[]} [tokenRanges] - The token ranges of the items to mint.\n * @property {string} [quantity] - The quantity of the item to mint.\n * @property {string[]} [quantities] - The quantities of the items to mint.\n * @property {string} toAddress - The address that will receive the newly minted items.\n * @property {string[]} [toAddresses] - The addresses that will receive the newly minted items.\n */",
         "meta": {
             "filename": "item.js",
-            "lineno": 189,
+            "lineno": 194,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {}
@@ -6242,18 +6188,18 @@
         "memberof": "module:phosphor/src/item/item"
     },
     {
-        "comment": "/**\n * @title Mint Items\n *\n * @description Requests the minting of one or more items.\n * @param {MintItemsInput} data - The data to mint the items.\n */",
+        "comment": "/**\n * @title Mint Items\n *\n * @description Requests the minting of one or more items.\n * @param {MintItemsInput} data - The data to mint the items.\n * @docs https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/create-mint-requests\n * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests/post\n */",
         "meta": {
             "range": [
-                6973,
-                7797
+                7602,
+                8426
             ],
             "filename": "item.js",
-            "lineno": 208,
+            "lineno": 215,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000715",
+                "id": "astnode100000643",
                 "name": "mintItems",
                 "type": "FunctionDeclaration",
                 "paramnames": [
@@ -6273,6 +6219,18 @@
                 "title": "title",
                 "text": "Mint Items",
                 "value": "Mint Items"
+            },
+            {
+                "originalTitle": "docs",
+                "title": "docs",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/create-mint-requests",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/create-mint-requests"
+            },
+            {
+                "originalTitle": "api",
+                "title": "api",
+                "text": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests/post",
+                "value": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests/post"
             }
         ],
         "description": "<p>Requests the minting of one or more items.</p>",
@@ -6298,15 +6256,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7020,
-                7026
+                7649,
+                7655
             ],
             "filename": "item.js",
-            "lineno": 210,
+            "lineno": 217,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000722",
+                "id": "astnode100000650",
                 "name": "itemId",
                 "type": "Identifier",
                 "value": "itemId",
@@ -6325,15 +6283,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7032,
-                7039
+                7661,
+                7668
             ],
             "filename": "item.js",
-            "lineno": 211,
+            "lineno": 218,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000724",
+                "id": "astnode100000652",
                 "name": "itemIds",
                 "type": "Identifier",
                 "value": "itemIds",
@@ -6352,15 +6310,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7045,
-                7057
+                7674,
+                7686
             ],
             "filename": "item.js",
-            "lineno": 212,
+            "lineno": 219,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000726",
+                "id": "astnode100000654",
                 "name": "collectionId",
                 "type": "Identifier",
                 "value": "collectionId",
@@ -6379,15 +6337,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7063,
-                7071
+                7692,
+                7700
             ],
             "filename": "item.js",
-            "lineno": 213,
+            "lineno": 220,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000728",
+                "id": "astnode100000656",
                 "name": "tokenIds",
                 "type": "Identifier",
                 "value": "tokenIds",
@@ -6406,15 +6364,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7077,
-                7088
+                7706,
+                7717
             ],
             "filename": "item.js",
-            "lineno": 214,
+            "lineno": 221,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000730",
+                "id": "astnode100000658",
                 "name": "tokenRanges",
                 "type": "Identifier",
                 "value": "tokenRanges",
@@ -6433,15 +6391,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7094,
-                7102
+                7723,
+                7731
             ],
             "filename": "item.js",
-            "lineno": 215,
+            "lineno": 222,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000732",
+                "id": "astnode100000660",
                 "name": "quantity",
                 "type": "Identifier",
                 "value": "quantity",
@@ -6460,15 +6418,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7108,
-                7118
+                7737,
+                7747
             ],
             "filename": "item.js",
-            "lineno": 216,
+            "lineno": 223,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000734",
+                "id": "astnode100000662",
                 "name": "quantities",
                 "type": "Identifier",
                 "value": "quantities",
@@ -6487,15 +6445,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7124,
-                7133
+                7753,
+                7762
             ],
             "filename": "item.js",
-            "lineno": 217,
+            "lineno": 224,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000736",
+                "id": "astnode100000664",
                 "name": "toAddress",
                 "type": "Identifier",
                 "value": "toAddress",
@@ -6514,15 +6472,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7139,
-                7150
+                7768,
+                7779
             ],
             "filename": "item.js",
-            "lineno": 218,
+            "lineno": 225,
             "columnno": 4,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000738",
+                "id": "astnode100000666",
                 "name": "toAddresses",
                 "type": "Identifier",
                 "value": "toAddresses",
@@ -6541,15 +6499,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7183,
-                7206
+                7812,
+                7835
             ],
             "filename": "item.js",
-            "lineno": 222,
+            "lineno": 229,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000744",
+                "id": "astnode100000672",
                 "name": "headers",
                 "type": "NewExpression",
                 "value": "",
@@ -6569,15 +6527,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7391,
-                7405
+                8020,
+                8034
             ],
             "filename": "item.js",
-            "lineno": 228,
+            "lineno": 235,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000771",
+                "id": "astnode100000699",
                 "name": "method",
                 "type": "Literal",
                 "value": "POST",
@@ -6596,15 +6554,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7413,
-                7420
+                8042,
+                8049
             ],
             "filename": "item.js",
-            "lineno": 229,
+            "lineno": 236,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000773",
+                "id": "astnode100000701",
                 "name": "headers",
                 "type": "Identifier",
                 "value": "headers",
@@ -6623,15 +6581,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7428,
-                7738
+                8057,
+                8367
             ],
             "filename": "item.js",
-            "lineno": 230,
+            "lineno": 237,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000775",
+                "id": "astnode100000703",
                 "name": "body",
                 "type": "CallExpression",
                 "value": "",
@@ -6650,15 +6608,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7459,
-                7474
+                8088,
+                8103
             ],
             "filename": "item.js",
-            "lineno": 231,
+            "lineno": 238,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000781",
+                "id": "astnode100000709",
                 "name": "item_id",
                 "type": "Identifier",
                 "value": "itemId",
@@ -6677,15 +6635,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7484,
-                7501
+                8113,
+                8130
             ],
             "filename": "item.js",
-            "lineno": 232,
+            "lineno": 239,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000783",
+                "id": "astnode100000711",
                 "name": "item_ids",
                 "type": "Identifier",
                 "value": "itemIds",
@@ -6704,15 +6662,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7511,
-                7538
+                8140,
+                8167
             ],
             "filename": "item.js",
-            "lineno": 233,
+            "lineno": 240,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000785",
+                "id": "astnode100000713",
                 "name": "collection_id",
                 "type": "Identifier",
                 "value": "collectionId",
@@ -6731,15 +6689,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7548,
-                7567
+                8177,
+                8196
             ],
             "filename": "item.js",
-            "lineno": 234,
+            "lineno": 241,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000787",
+                "id": "astnode100000715",
                 "name": "token_ids",
                 "type": "Identifier",
                 "value": "tokenIds",
@@ -6758,15 +6716,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7577,
-                7602
+                8206,
+                8231
             ],
             "filename": "item.js",
-            "lineno": 235,
+            "lineno": 242,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000789",
+                "id": "astnode100000717",
                 "name": "token_ranges",
                 "type": "Identifier",
                 "value": "tokenRanges",
@@ -6785,15 +6743,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7612,
-                7630
+                8241,
+                8259
             ],
             "filename": "item.js",
-            "lineno": 236,
+            "lineno": 243,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000791",
+                "id": "astnode100000719",
                 "name": "quantity",
                 "type": "Identifier",
                 "value": "quantity",
@@ -6812,15 +6770,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7640,
-                7662
+                8269,
+                8291
             ],
             "filename": "item.js",
-            "lineno": 237,
+            "lineno": 244,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000793",
+                "id": "astnode100000721",
                 "name": "quantities",
                 "type": "Identifier",
                 "value": "quantities",
@@ -6839,15 +6797,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7672,
-                7693
+                8301,
+                8322
             ],
             "filename": "item.js",
-            "lineno": 238,
+            "lineno": 245,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000795",
+                "id": "astnode100000723",
                 "name": "to_address",
                 "type": "Identifier",
                 "value": "toAddress",
@@ -6866,15 +6824,15 @@
         "comment": "",
         "meta": {
             "range": [
-                7703,
-                7728
+                8332,
+                8357
             ],
             "filename": "item.js",
-            "lineno": 239,
+            "lineno": 246,
             "columnno": 8,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000797",
+                "id": "astnode100000725",
                 "name": "to_addresses",
                 "type": "Identifier",
                 "value": "toAddresses",
@@ -6890,24 +6848,24 @@
         "memberof": "module:phosphor/src/item/item"
     },
     {
-        "comment": "/**\n * @title Check mint request\n *\n * @description Check the status of a mint request\n * @param {string} mintRequestId - Id of the mint request\n */",
+        "comment": "/**\n * @title Check mint request\n *\n * @description Check the status of a mint request\n * @param {string} mintRequestId - Id of the mint request\n * @docs https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/get-mint-requests\n * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests~1%7Bid%7D/get\n */",
         "meta": {
             "range": [
-                7948,
-                8327
+                8800,
+                9173
             ],
             "filename": "item.js",
-            "lineno": 253,
+            "lineno": 262,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000806",
+                "id": "astnode100000734",
                 "name": "checkMintRequest",
                 "type": "FunctionDeclaration",
                 "paramnames": [
                     "mintRequestId"
                 ],
-                "snippet": "async function checkMintRequest(mintRequestId) {\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return await fetch(`${phosphorApiUrl}/v1/mint-requests/${mintRequestId}`, {\n      method: \"GET\",\n      headers,\n    });\n  } catch (error) {\n    console.log(error);\n  }\n}",
+                "snippet": "async function checkMintRequest(mintRequestId) {\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return fetch(`${phosphorApiUrl}/v1/mint-requests/${mintRequestId}`, {\n      method: \"GET\",\n      headers,\n    });\n  } catch (error) {\n    console.log(error);\n  }\n}",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
             },
             "vars": {
@@ -6920,6 +6878,18 @@
                 "title": "title",
                 "text": "Check mint request",
                 "value": "Check mint request"
+            },
+            {
+                "originalTitle": "docs",
+                "title": "docs",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/get-mint-requests",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/get-mint-requests"
+            },
+            {
+                "originalTitle": "api",
+                "title": "api",
+                "text": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests~1%7Bid%7D/get",
+                "value": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests~1%7Bid%7D/get"
             }
         ],
         "description": "<p>Check the status of a mint request</p>",
@@ -6945,15 +6915,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8015,
-                8038
+                8867,
+                8890
             ],
             "filename": "item.js",
-            "lineno": 255,
+            "lineno": 264,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000813",
+                "id": "astnode100000741",
                 "name": "headers",
                 "type": "NewExpression",
                 "value": "",
@@ -6973,15 +6943,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8240,
-                8253
+                9086,
+                9099
             ],
             "filename": "item.js",
-            "lineno": 261,
+            "lineno": 270,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000842",
+                "id": "astnode100000769",
                 "name": "method",
                 "type": "Literal",
                 "value": "GET",
@@ -7000,15 +6970,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8261,
-                8268
+                9107,
+                9114
             ],
             "filename": "item.js",
-            "lineno": 262,
+            "lineno": 271,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000844",
+                "id": "astnode100000771",
                 "name": "headers",
                 "type": "Identifier",
                 "value": "headers",
@@ -7024,24 +6994,24 @@
         "memberof": "module:phosphor/src/item/item"
     },
     {
-        "comment": "/**\n * @title Delete a single item\n *\n * @description Delete items that are not minted or not being minted\n * @param {string} itemId - Id of the item\n */",
+        "comment": "/**\n * @title Delete a single item\n *\n * @description Delete items that are not minted or not being minted\n * @param {string} itemId - Id of the item\n * \n * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/delete-an-item\n * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1lock/post\n */",
         "meta": {
             "range": [
-                8483,
-                8837
+                9530,
+                9878
             ],
             "filename": "item.js",
-            "lineno": 275,
+            "lineno": 287,
             "columnno": 0,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000853",
+                "id": "astnode100000780",
                 "name": "deleteItem",
                 "type": "FunctionDeclaration",
                 "paramnames": [
                     "itemId"
                 ],
-                "snippet": "async function deleteItem(itemId) {\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return await fetch(`${phosphorApiUrl}/v1/items/${itemId}`, {\n      method: \"DELETE\",\n      headers,\n    });\n  } catch (error) {\n    console.log(error);\n  }\n}",
+                "snippet": "async function deleteItem(itemId) {\n  try {\n    const headers = new Headers();\n\n    headers.append(\"Content-Type\", \"application/json\");\n    headers.append(\"Phosphor-Api-Key\", phosphorApiKey);\n\n    return fetch(`${phosphorApiUrl}/v1/items/${itemId}`, {\n      method: \"DELETE\",\n      headers,\n    });\n  } catch (error) {\n    console.log(error);\n  }\n}",
                 "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
             },
             "vars": {
@@ -7054,6 +7024,18 @@
                 "title": "title",
                 "text": "Delete a single item",
                 "value": "Delete a single item"
+            },
+            {
+                "originalTitle": "docs",
+                "title": "docs",
+                "text": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/delete-an-item",
+                "value": "https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/delete-an-item"
+            },
+            {
+                "originalTitle": "api",
+                "title": "api",
+                "text": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1lock/post",
+                "value": "https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1lock/post"
             }
         ],
         "description": "<p>Delete items that are not minted or not being minted</p>",
@@ -7079,15 +7061,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8537,
-                8560
+                9584,
+                9607
             ],
             "filename": "item.js",
-            "lineno": 277,
+            "lineno": 289,
             "columnno": 10,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000860",
+                "id": "astnode100000787",
                 "name": "headers",
                 "type": "NewExpression",
                 "value": "",
@@ -7107,15 +7089,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8747,
-                8763
+                9788,
+                9804
             ],
             "filename": "item.js",
-            "lineno": 283,
+            "lineno": 295,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000889",
+                "id": "astnode100000815",
                 "name": "method",
                 "type": "Literal",
                 "value": "DELETE",
@@ -7134,15 +7116,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8771,
-                8778
+                9812,
+                9819
             ],
             "filename": "item.js",
-            "lineno": 284,
+            "lineno": 296,
             "columnno": 6,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000891",
+                "id": "astnode100000817",
                 "name": "headers",
                 "type": "Identifier",
                 "value": "headers",
@@ -7161,15 +7143,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8850,
-                8860
+                9891,
+                9901
             ],
             "filename": "item.js",
-            "lineno": 292,
+            "lineno": 304,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000901",
+                "id": "astnode100000827",
                 "name": "exports.createItem",
                 "type": "Identifier",
                 "snippet": "createItem",
@@ -7187,41 +7169,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8864,
-                8872
+                9919,
+                9928
             ],
             "filename": "item.js",
-            "lineno": 293,
+            "lineno": 306,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000904",
-                "name": "exports.editItem",
-                "type": "Identifier",
-                "snippet": "editItem",
-                "link": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item/item.js"
-            }
-        },
-        "undocumented": true,
-        "name": "editItem",
-        "longname": "module:phosphor/src/item/item.editItem",
-        "kind": "member",
-        "memberof": "module:phosphor/src/item/item",
-        "scope": "static"
-    },
-    {
-        "comment": "",
-        "meta": {
-            "range": [
-                8876,
-                8885
-            ],
-            "filename": "item.js",
-            "lineno": 294,
-            "columnno": 2,
-            "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
-            "code": {
-                "id": "astnode100000907",
+                "id": "astnode100000830",
                 "name": "exports.lockItems",
                 "type": "Identifier",
                 "snippet": "lockItems",
@@ -7239,15 +7195,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8889,
-                8898
+                9932,
+                9941
             ],
             "filename": "item.js",
-            "lineno": 295,
+            "lineno": 307,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000910",
+                "id": "astnode100000833",
                 "name": "exports.mintItems",
                 "type": "Identifier",
                 "snippet": "mintItems",
@@ -7265,15 +7221,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8902,
-                8918
+                9945,
+                9961
             ],
             "filename": "item.js",
-            "lineno": 296,
+            "lineno": 308,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000913",
+                "id": "astnode100000836",
                 "name": "exports.checkMintRequest",
                 "type": "Identifier",
                 "snippet": "checkMintRequest",
@@ -7291,15 +7247,15 @@
         "comment": "",
         "meta": {
             "range": [
-                8922,
-                8932
+                9965,
+                9975
             ],
             "filename": "item.js",
-            "lineno": 297,
+            "lineno": 309,
             "columnno": 2,
             "path": "/Users/chinthakaweerakkody/Documents/consensys/metamask-cheatshets/packages/phosphor/src/item",
             "code": {
-                "id": "astnode100000916",
+                "id": "astnode100000839",
                 "name": "exports.deleteItem",
                 "type": "Identifier",
                 "snippet": "deleteItem",
