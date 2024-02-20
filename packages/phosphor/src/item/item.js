@@ -33,6 +33,8 @@ const phosphorApiUrl =
  *
  * @param {CreateItemInput} data - The data to create the item.
  * @returns {Promise} A promise that resolves to the created item.
+ * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections/create-a-collection
+ * @api  https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/create-an-item
  */
 async function createItem(data) {
   const { collectionId, attributes, itemTypeId } = data;
@@ -118,33 +120,33 @@ async function createItem(data) {
 //   }
 // }
 
-/**
- * @title Edit Item
- *
- * @description Specified attributes will replace all existing ones and must comply with the item type schema. Once an item is minted, its attributes can't be updated unless the collection allows metadata editing
- */
-async function editItem(data) {
-  const { itemId, attributes, itemTypeId, royaltyInfo } = data;
+// /**
+//  * @title Edit Item
+//  *
+//  * @description Specified attributes will replace all existing ones and must comply with the item type schema. Once an item is minted, its attributes can't be updated unless the collection allows metadata editing
+//  */
+// async function editItem(data) {
+//   const { itemId, attributes, itemTypeId, royaltyInfo } = data;
 
-  try {
-    const headers = new Headers();
+//   try {
+//     const headers = new Headers();
 
-    headers.append("Content-Type", "application/json");
-    headers.append("Phosphor-Api-Key", phosphorApiKey);
+//     headers.append("Content-Type", "application/json");
+//     headers.append("Phosphor-Api-Key", phosphorApiKey);
 
-    return await fetch(`${phosphorApiUrl}/v1/items/${itemId}`, {
-      method: "PATCH",
-      headers,
-      body: JSON.stringify({
-        attributes,
-        item_type_id: itemTypeId,
-        royalty_info: royaltyInfo,
-      }),
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     return await fetch(`${phosphorApiUrl}/v1/items/${itemId}`, {
+//       method: "PATCH",
+//       headers,
+//       body: JSON.stringify({
+//         attributes,
+//         item_type_id: itemTypeId,
+//         royalty_info: royaltyInfo,
+//       }),
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
 /**
  * @typedef {Object} LockItemsInput
@@ -160,6 +162,9 @@ async function editItem(data) {
  *
  * @description Locks items based on their IDs or a collection ID.
  * @param {LockItemsInput} data - The data to lock the items.
+ * 
+ * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/locking
+ * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1bulk/post
  */
 async function lockItems(data) {
   const { itemId, itemIds, collectionId, maxSupply, tokenId } = data;
@@ -170,7 +175,7 @@ async function lockItems(data) {
     headers.append("Content-Type", "application/json");
     headers.append("Phosphor-Api-Key", phosphorApiKey);
 
-    return await fetch(`${phosphorApiUrl}/v1/items/lock`, {
+    return fetch(`${phosphorApiUrl}/v1/items/lock`, {
       method: "POST",
       headers,
       body: JSON.stringify({
@@ -204,6 +209,8 @@ async function lockItems(data) {
  *
  * @description Requests the minting of one or more items.
  * @param {MintItemsInput} data - The data to mint the items.
+ * @docs https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/create-mint-requests
+ * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests/post
  */
 async function mintItems(data) {
   const {
@@ -249,6 +256,8 @@ async function mintItems(data) {
  *
  * @description Check the status of a mint request
  * @param {string} mintRequestId - Id of the mint request
+ * @docs https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/get-mint-requests
+ * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests~1%7Bid%7D/get
  */
 async function checkMintRequest(mintRequestId) {
   try {
@@ -257,7 +266,7 @@ async function checkMintRequest(mintRequestId) {
     headers.append("Content-Type", "application/json");
     headers.append("Phosphor-Api-Key", phosphorApiKey);
 
-    return await fetch(`${phosphorApiUrl}/v1/mint-requests/${mintRequestId}`, {
+    return fetch(`${phosphorApiUrl}/v1/mint-requests/${mintRequestId}`, {
       method: "GET",
       headers,
     });
@@ -271,6 +280,9 @@ async function checkMintRequest(mintRequestId) {
  *
  * @description Delete items that are not minted or not being minted
  * @param {string} itemId - Id of the item
+ * 
+ * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/delete-an-item
+ * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1lock/post
  */
 async function deleteItem(itemId) {
   try {
@@ -279,7 +291,7 @@ async function deleteItem(itemId) {
     headers.append("Content-Type", "application/json");
     headers.append("Phosphor-Api-Key", phosphorApiKey);
 
-    return await fetch(`${phosphorApiUrl}/v1/items/${itemId}`, {
+    return fetch(`${phosphorApiUrl}/v1/items/${itemId}`, {
       method: "DELETE",
       headers,
     });
@@ -290,7 +302,7 @@ async function deleteItem(itemId) {
 
 export {
   createItem,
-  editItem,
+  //editItem,
   lockItems,
   mintItems,
   checkMintRequest,
