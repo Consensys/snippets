@@ -79,8 +79,8 @@ const phosphorApiUrl = process.env.PHOSPHOR_API_URL;
  * Creates a collection.
  * @title Create Collection with platform contract
  * @description get started with one of phosphor's platform contracts
- * @param {CreateCollectionInput} data - The data to create the collection with.
- * @returns {Promise} - A promise that resolves when the collection is created.
+ * @param {CreateCollectionInput} data
+ * @returns {Promise}
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections/create-a-collection
  * @api https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post
  */
@@ -182,8 +182,8 @@ async function createCollection(data) {
  *
  * @description Use your own smart contract to create a new collection (with restrictions)
  *
- * @param {CreateCollectionWithOwnContractInput} data - The data to create the collection with.
- * @returns {Promise} - A promise that resolves when the collection is created.
+ * @param {CreateCollectionWithOwnContractInput} data
+ * @returns {Promise}
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions
  * @api https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post
  */
@@ -286,8 +286,8 @@ async function createCollectionWithOwnContract(data) {
  *
  * @description Use an external smart contract to create a new collection (with restrictions)
  *
- * @param {CreateCollectionWithExternalContractInput} data - The data to create the collection with.
- * @returns {Promise} - A promise that resolves when the collection is created.
+ * @param {CreateCollectionWithExternalContractInput} data
+ * @returns {Promise}
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections#restrictions
  * @api https://docs.consensys-nft.com/latest-admin-api#tag/Collection/paths/~1v1~1collections/post
  */

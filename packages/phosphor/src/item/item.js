@@ -29,8 +29,8 @@ const phosphorApiUrl = process.env.PHOSPHOR_API_URL;
  *
  * @description Initiates the creation of a new item based on provided data.
  *
- * @param {CreateItemInput} data - The data to create the item.
- * @returns {Promise} A promise that resolves to the created item.
+ * @param {CreateItemInput} data
+ * @returns {Promise}
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/collections/create-a-collection
  * @api  https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/create-an-item
  */
@@ -159,7 +159,7 @@ async function createItem(data) {
  * @title Lock Items
  *
  * @description Locks items based on their IDs or a collection ID.
- * @param {LockItemsInput} data - The data to lock the items.
+ * @param {LockItemsInput} data
  *
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/locking
  * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1bulk/post
@@ -206,7 +206,7 @@ async function lockItems(data) {
  * @title Mint Items
  *
  * @description Requests the minting of one or more items.
- * @param {MintItemsInput} data - The data to mint the items.
+ * @param {MintItemsInput} data
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/create-mint-requests
  * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests/post
  */
@@ -253,7 +253,7 @@ async function mintItems(data) {
  * @title Check mint request
  *
  * @description Check the status of a mint request
- * @param {string} mintRequestId - Id of the mint request
+ * @param {string} mintRequestId
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-distribution/mint-requests/get-mint-requests
  * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1mint-requests~1%7Bid%7D/get
  */
@@ -277,7 +277,7 @@ async function checkMintRequest(mintRequestId) {
  * @title Delete a single item
  *
  * @description Delete items that are not minted or not being minted
- * @param {string} itemId - Id of the item
+ * @param {string} itemId
  *
  * @docs https://docs.consensys-nft.com/platform-features/digital-asset-creation/items/delete-an-item
  * @api  https://docs.consensys-nft.com/latest-admin-api#tag/Item/paths/~1v1~1items~1lock/post

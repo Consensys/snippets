@@ -1,0 +1,30 @@
+{
+  "name": "blockchain",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "hardhat node",
+    "compile": "hardhat compile",
+    "deploy": "hardhat deploy",
+    "deploy:test": "hardhat run --network linea-testnet scripts/deploy.ts ",
+    "deploy:local": "hardhat run --network localhost scripts/deploy.ts "
+  },
+  "devDependencies": {
+    "hardhat-phosphor": "workspace:*",
+    "@nomicfoundation/hardhat-ethers": "^3.0.4",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@typechain/ethers-v6": "^0.4.0",
+    "chai": "^4.3.10",
+    "dotenv": "^16.0.3",
+    "erc721a": "^4.2.3",
+    "ethers": "^6.8.1",
+    "hardhat": "^2.18.3",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "assertion-error": "^2.0.1",
+    "hardhat-deploy": "^0.11.45"
+  }
+}

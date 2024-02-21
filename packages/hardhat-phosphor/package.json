@@ -1,0 +1,19 @@
+{
+  "name": "hardhat-phosphor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/types.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20",
+    "hardhat": "^2.18.3",
+    "typescript": "^5.3.3"
+  }
+}
