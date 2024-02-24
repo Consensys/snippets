@@ -28,6 +28,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.2.56)(react@18.0.0)
+      '@vercel/analytics':
+        specifier: ^1.2.2
+        version: 1.2.2(next@14.1.0)(react@18.0.0)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -128,6 +131,9 @@ importers:
       hardhat-deploy:
         specifier: ^0.11.45
         version: 0.11.45
+      hardhat-phosphor:
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
       '@nomicfoundation/hardhat-ethers':
         specifier: ^3.0.4
@@ -153,9 +159,6 @@ importers:
       hardhat:
         specifier: ^2.18.3
         version: 2.20.1(ts-node@10.9.2)(typescript@5.3.3)
-      hardhat-phosphor:
-        specifier: workspace:*
-        version: link:../hardhat-phosphor
       ts-node:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@20.0.0)(typescript@5.3.3)
@@ -163,7 +166,7 @@ importers:
         specifier: ^8.3.1
         version: 8.3.2(typescript@5.3.3)
 
-  packages/hardhat-phosphor:
+  packages/hardhat-phosphor-1:
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -1973,6 +1976,22 @@ packages:
       '@typescript-eslint/types': 6.14.0
       eslint-visitor-keys: 3.4.3
     dev: true
+
+  /@vercel/analytics@1.2.2(next@14.1.0)(react@18.0.0):
+    resolution: {integrity: sha512-X0rctVWkQV1e5Y300ehVNqpOfSOufo7ieA5PIdna8yX/U7Vjz0GFsGf4qvAhxV02uQ2CVt7GYcrFfddXXK2Y4A==}
+    peerDependencies:
+      next: '>= 13'
+      react: ^18 || ^19
+    peerDependenciesMeta:
+      next:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      next: 14.1.0(react-dom@18.0.0)(react@18.0.0)
+      react: 18.0.0
+      server-only: 0.0.1
+    dev: false
 
   /abbrev@1.0.9:
     resolution: {integrity: sha512-LEyx4aLEC3x6T0UguF6YILf+ntvmOaWsVfENmIW0E9H09vKlLDGelMjjSm0jkDHALj8A8quZ/HapKNigzwge+Q==}
@@ -4018,6 +4037,10 @@ packages:
       - utf-8-validate
     dev: true
 
+  /hardhat-phosphor@1.0.1:
+    resolution: {integrity: sha512-SSqK6K1Srdhr99hJwr4ajQ95fR0KYcXg5h9DskDWYyV58DRopKqCOFNxFcoJNwkDbeMKHIan6QB6xX6sIlIHFQ==}
+    dev: false
+
   /hardhat@2.20.1(ts-node@10.9.2)(typescript@5.3.3):
     resolution: {integrity: sha512-q75xDQiQtCZcTMBwjTovrXEU5ECr49baxr4/OBkIu/ULTPzlB20yk1dRWNmD2IFbAeAeXggaWvQAdpiScaHtPw==}
     hasBin: true
@@ -5828,6 +5851,10 @@ packages:
     dependencies:
       randombytes: 2.1.0
     dev: true
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
 
   /set-function-length@1.1.1:
     resolution: {integrity: sha512-VoaqjbBJKiWtg4yRcKBQ7g7wnGnLV3M8oLvVWwOk2PdYY6PEFegR1vezXR0tw6fZGF9csVakIRjrJiy2veSBFQ==}
