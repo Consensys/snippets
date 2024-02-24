@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
 import { Nav } from "@/components/nav";
 import "./globals.css";
 
@@ -15,11 +16,10 @@ const Layout: React.FC<Props> = ({ children }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <main className="container lg:max-w-6xl py-10 mx-auto">
-   
             <Nav />
             <div>
-
-            {children}
+              {children}
+              <Analytics />
             </div>
           </main>
         </div>
