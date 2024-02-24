@@ -18,7 +18,6 @@ const config: HardhatUserConfig = {
     phosphorEndpoint: "https://admin-api.consensys-nft.com",
     phosphorApiKey: "d7e0696ff49f4ca8ba5d585bfe46f71b",
   },
-  defaultNetwork: "localhost",
   namedAccounts: {
     deployer: {
       default: 0,

@@ -10,7 +10,6 @@
     "deploy:local": "hardhat run --network localhost scripts/deploy.ts "
   },
   "devDependencies": {
-    "hardhat-phosphor": "workspace:*",
     "@nomicfoundation/hardhat-ethers": "^3.0.4",
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "@typechain/ethers-v6": "^0.4.0",
@@ -25,6 +24,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.0",
     "assertion-error": "^2.0.1",
-    "hardhat-deploy": "^0.11.45"
+    "hardhat-deploy": "^0.11.45",
+    "hardhat-phosphor": "^1.0.1"
   }
 }
