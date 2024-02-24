@@ -166,7 +166,7 @@ importers:
         specifier: ^8.3.1
         version: 8.3.2(typescript@5.3.3)
 
-  packages/hardhat-phosphor-1:
+  packages/hardhat-phosphor:
     devDependencies:
       '@types/node':
         specifier: ^20
